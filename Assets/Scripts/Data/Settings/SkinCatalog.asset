@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b71e5d903ca24f68a1d2c8e7b5f30926, type: 3}
+  m_Name: SkinCatalog
+  m_EditorClassIdentifier: 
+  skins:
+  - displayName: Gray
+    price: 0
+    prefab: {fileID: 7272469667602836981, guid: e00e466092c192846b8b69a1c0ccf607, type: 3}
+  - displayName: Alfedov
+    price: 400
+    prefab: {fileID: 6239918218095515067, guid: 411426372c68c94449bfa30d55f29439, type: 3}
+  - displayName: Slime
+    price: 500
+    prefab: {fileID: 1705336935292328902, guid: 411426372c68c94449bfa30d55f29439, type: 3}
+  - displayName: PwGood
+    price: 650
+    prefab: {fileID: 2458370083788776868, guid: 411426372c68c94449bfa30d55f29439, type: 3}
+  - displayName: Pumkin
+    price: 700
+    prefab: {fileID: 7808845265368487899, guid: 411426372c68c94449bfa30d55f29439, type: 3}
+  - displayName: Watermelon
+    price: 700
+    prefab: {fileID: 5721757535777058993, guid: 411426372c68c94449bfa30d55f29439, type: 3}
+  - displayName: Keith
+    price: 5000
+    prefab: {fileID: 6731316078326995734, guid: 411426372c68c94449bfa30d55f29439, type: 3}
+  - displayName: Monitor
+    price: 6000
+    prefab: {fileID: 8224021587003247891, guid: 411426372c68c94449bfa30d55f29439, type: 3}
+  - displayName: Red Gift
+    price: 7000
+    prefab: {fileID: 3810327753473896161, guid: 809922b86092c11478d552654d9f6c96, type: 3}
+  - displayName: Green Gift
+    price: 7000
+    prefab: {fileID: 7266718260090552572, guid: e9102384cb05722428d306256fb7126f, type: 3}

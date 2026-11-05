@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4d11f0a2b34e7d9b6a5c3e2f1d0a45, type: 3}
+  m_Name: TrackSettings
+  m_EditorClassIdentifier: 
+  startTiles:
+  - {fileID: 3292486774118360957, guid: 7f4ac00d73b8cac4683eee81b007df5c, type: 3}
+  roadTiles:
+  - {fileID: 3292486774118360957, guid: 04ce4b7d42f2fac47b699beafaa32e0f, type: 3}
+  - {fileID: 3292486774118360957, guid: 3a53c8991a1680644b77e82163caa816, type: 3}
+  - {fileID: 3292486774118360957, guid: 1e1c45d0420d0494ca7bc2906400fffa, type: 3}
+  - {fileID: 3292486774118360957, guid: f464b9e2078717446b5cad55ad56ebbc, type: 3}
+  - {fileID: 3292486774118360957, guid: 26f54b267baa7464a871307bb1597882, type: 3}
+  - {fileID: 3292486774118360957, guid: 81558b340b245cf46837be7fb0002930, type: 3}
+  - {fileID: 3292486774118360957, guid: 920fe94ed891b414ba4329d05952391d, type: 3}
+  - {fileID: 3292486774118360957, guid: 84e592fcdcd7403429d41ee0eb337e66, type: 3}
+  - {fileID: 3292486774118360957, guid: d09dc137cc117724c8d4eac448d1a199, type: 3}
+  - {fileID: 3292486774118360957, guid: 939653e5563b60a4bb7a17ace2e09fee, type: 3}
+  tileLength: 100
+  initialTiles: 6
+  spawnDistance: 150
+  despawnDistance: 200
+  rowGap: 25
+  firstRowDistance: 120
+  emptyRowChance: 0.15
+  patternChance: 0.35
+  pickups:
+  - kind: 0
+    prefab: {fileID: 1272804948857251179, guid: 5ac883903529dcb4eacc9f62dcda6afa, type: 3}
+    weight: 6
+  - kind: 1
+    prefab: {fileID: 651071253406840651, guid: fdc443a94126c5f4daae20d4ecd30265, type: 3}
+    weight: 1
+  - kind: 2
+    prefab: {fileID: 5025229703251486795, guid: cacd96cd9138e2b4695c85661449335f, type: 3}
+    weight: 1
+  - kind: 3
+    prefab: {fileID: 3809646739578206538, guid: 7650d9caa9e292348a589c3a970b54b7, type: 3}
+    weight: 1
+  obstacles:
+  - kind: 4
+    prefab: {fileID: 4560318811251038601, guid: 6057263b7cf4a1745a5634acb434386b, type: 3}
+    weight: 2
+  - kind: 5
+    prefab: {fileID: 6407973971250274042, guid: bfd69d60460a01e47993051dc35b7b9b, type: 3}
+    weight: 3
+  patterns: []
