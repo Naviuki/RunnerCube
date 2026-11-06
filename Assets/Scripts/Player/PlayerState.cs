@@ -12,8 +12,8 @@ namespace RunnerCube.Player
 
         public PlayerState(RunSettings settings)
         {
-            _settings = settings;
-            Speed = new RunSpeed(settings);
+            _settings = settings != null ? settings : RunSettings.Default;
+            Speed = new RunSpeed(_settings);
             Pose = PlayerPose.Running;
         }
 
@@ -39,7 +39,7 @@ namespace RunnerCube.Player
 
         public void Tick(float deltaTime)
         {
-            if (Dead)
+            if (Dead || deltaTime <= 0f)
                 return;
 
             Speed.Grow(deltaTime);

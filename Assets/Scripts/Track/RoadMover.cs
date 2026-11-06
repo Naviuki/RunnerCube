@@ -15,14 +15,30 @@ namespace RunnerCube.Track
 
         private float _lastPlayerZ;
 
+        private void Awake()
+        {
+            if (player == null)
+            {
+                Player.PlayerMotor motor = FindFirstObjectByType<Player.PlayerMotor>(FindObjectsInactive.Include);
+                if (motor != null)
+                    player = motor.transform;
+            }
+
+            if (roadParent == null)
+                roadParent = transform;
+
+            if (itemsParent == null)
+                itemsParent = transform;
+        }
+
         public void Begin()
         {
-            _lastPlayerZ = player.position.z;
+            _lastPlayerZ = player != null ? player.position.z : 0f;
         }
 
         private void LateUpdate()
         {
-            if (SceneServices.Instance == null || !SceneServices.Instance.Session.IsPlaying)
+            if (player == null || SceneServices.Instance == null || !SceneServices.Instance.Session.IsPlaying)
                 return;
 
             float delta = player.position.z - _lastPlayerZ;

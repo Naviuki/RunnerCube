@@ -10,12 +10,26 @@ namespace RunnerCube.UI
     {
         [SerializeField] private SceneFlow scenes;
 
+        private void Awake()
+        {
+            if (scenes == null)
+                scenes = FindFirstObjectByType<SceneFlow>(FindObjectsInactive.Include);
+        }
+
         public void Pause() => SceneServices.Instance.Session.TogglePause();
 
         public void Resume() => SceneServices.Instance.Session.TogglePause();
 
-        public void Restart() => scenes.Restart();
+        public void Restart()
+        {
+            if (scenes != null)
+                scenes.Restart();
+        }
 
-        public void ToMenu() => scenes.LoadMenu();
+        public void ToMenu()
+        {
+            if (scenes != null)
+                scenes.LoadMenu();
+        }
     }
 }

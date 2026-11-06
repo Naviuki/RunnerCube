@@ -43,16 +43,29 @@ namespace RunnerCube.UI
 
         private void OnState(GameState state)
         {
-            pausePanel.Show(state == GameState.Paused);
-            losePanel.Show(state == GameState.GameOver);
-            pauseButton.Show(state == GameState.Playing);
+            if (pausePanel != null)
+                pausePanel.Show(state == GameState.Paused);
+
+            if (losePanel != null)
+                losePanel.Show(state == GameState.GameOver);
+
+            if (pauseButton != null)
+                pauseButton.Show(state == GameState.Playing);
 
             if (state == GameState.GameOver && recordLabel != null)
                 recordLabel.Set(_session.Progress.Record);
         }
 
-        private void OnScore(int score) => scoreLabel.Set(score);
+        private void OnScore(int score)
+        {
+            if (scoreLabel != null)
+                scoreLabel.Set(score);
+        }
 
-        private void OnCoins(int runCoins, int total) => coinsLabel.Set(runCoins);
+        private void OnCoins(int runCoins, int total)
+        {
+            if (coinsLabel != null)
+                coinsLabel.Set(runCoins);
+        }
     }
 }

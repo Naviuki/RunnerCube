@@ -3,7 +3,7 @@ using UnityEngine;
 namespace RunnerCube.Data
 {
     /// <summary>
-    /// Числа забега: скорость, прыжок, полосы и таймеры бонусов.
+    /// Настройки забега. Если ссылка в сцене не задана, значения берутся из полей по умолчанию.
     /// </summary>
     [CreateAssetMenu(fileName = "RunSettings", menuName = "RunnerCube/Run Settings")]
     public sealed class RunSettings : ScriptableObject
@@ -44,5 +44,21 @@ namespace RunnerCube.Data
         public float DeathDelay => deathDelay;
         public float ShieldDuration => shieldDuration;
         public float StarDuration => starDuration;
+
+        private static RunSettings _fallback;
+
+        /// <summary>
+        /// Настройки по умолчанию для тестов и случаев, когда ассет не подключён.
+        /// </summary>
+        public static RunSettings Default
+        {
+            get
+            {
+                if (_fallback == null)
+                    _fallback = CreateInstance<RunSettings>();
+
+                return _fallback;
+            }
+        }
     }
 }

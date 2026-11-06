@@ -17,11 +17,13 @@ namespace RunnerCube.Player
         [SerializeField] private GameObject starEffect;
         [SerializeField] private GameObject dumbbellEffect;
 
+        private RunSettings Config => settings != null ? settings : RunSettings.Default;
+
         private float _shieldLeft;
         private float _starLeft;
 
-        public float ShieldFill => settings.ShieldDuration <= 0f ? 0f : _shieldLeft / settings.ShieldDuration;
-        public float StarFill => settings.StarDuration <= 0f ? 0f : _starLeft / settings.StarDuration;
+        public float ShieldFill => Config.ShieldDuration <= 0f ? 0f : _shieldLeft / Config.ShieldDuration;
+        public float StarFill => Config.StarDuration <= 0f ? 0f : _starLeft / Config.StarDuration;
         public bool HasShield => _shieldLeft > 0f;
         public bool HasStar => _starLeft > 0f;
 
@@ -36,21 +38,26 @@ namespace RunnerCube.Player
 
         public void GrantShield()
         {
-            _shieldLeft = settings.ShieldDuration;
-            motor.SetShield(true);
-            effects.Play(shieldEffect, transform.position);
-            SceneServices.Instance.Session.RaiseBonusStarted(BonusKind.Shield, settings.ShieldDuration);
+            _shieldLeft = Config.ShieldDuration;
+            if (motor != null)
+                motor.SetShield(true);
+
+            Play(shieldEffect);
+            SceneServices.Instance.Session.RaiseBonusStarted(BonusKind.Shield, Config.ShieldDuration);
         }
 
         public void GrantStar()
         {
-            _starLeft = settings.StarDuration;
+            _starLeft = Config.StarDuration;
             SceneServices.Instance.Session.SetMultiplier(GameConstants.StarMultiplier);
-            effects.Play(starEffect, transform.position);
-            SceneServices.Instance.Session.RaiseBonusStarted(BonusKind.Star, settings.StarDuration);
+            Play(starEffect);
+            SceneServices.Instance.Session.RaiseBonusStarted(BonusKind.Star, Config.StarDuration);
         }
 
-        public void EatDumbbell() => effects.Play(dumbbellEffect, transform.position);
+        public void EatDumbbell()
+        {
+            Play(dumbbellEffect);
+        }
 
         public void BreakShield()
         {
@@ -58,9 +65,17 @@ namespace RunnerCube.Player
                 return;
 
             _shieldLeft = 0f;
-            motor.SetShield(false);
-            effects.Play(shieldBreakEffect, transform.position);
+            if (motor != null)
+                motor.SetShield(false);
+
+            Play(shieldBreakEffect);
             SceneServices.Instance.Session.RaiseBonusEnded(BonusKind.Shield);
+        }
+
+        private void Play(GameObject effect)
+        {
+            if (effects != null)
+                effects.Play(effect, transform.position);
         }
 
         private void TickShield()

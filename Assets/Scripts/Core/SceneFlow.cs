@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 namespace RunnerCube.Core
 {
     /// <summary>
-    /// Переходы между сценами. Время сбрасывается перед загрузкой.
+    /// Переходы между сценами. Если объект не лежит в сцене, подключается сам.
     /// </summary>
     public sealed class SceneFlow : MonoBehaviour
     {

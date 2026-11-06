@@ -3,7 +3,7 @@ using UnityEngine;
 namespace RunnerCube.Player
 {
     /// <summary>
-    /// Переводит позу игрока в анимации. Аниматор тут только исполнитель.
+    /// Переводит позу игрока в анимации. Без аниматора просто ничего не делает.
     /// </summary>
     public sealed class PlayerView : MonoBehaviour
     {
@@ -21,27 +21,48 @@ namespace RunnerCube.Player
 
         private void Awake()
         {
+            if (animator == null)
+                animator = GetComponentInChildren<Animator>(true);
+
             _runningHash = Animator.StringToHash(runningBool);
             _dyingHash = Animator.StringToHash(dyingTrigger);
             _slidingHash = Animator.StringToHash(slidingTrigger);
             _swallowHash = Animator.StringToHash(swallowTrigger);
         }
 
-        public void Run(bool running) => animator.SetBool(_runningHash, running);
+        public void Run(bool running)
+        {
+            if (animator != null)
+                animator.SetBool(_runningHash, running);
+        }
 
         public void Jump()
         {
+            if (animator == null)
+                return;
+
             animator.SetBool(_runningHash, false);
-            if (jumpStates.Length > 0)
+            if (jumpStates != null && jumpStates.Length > 0)
                 animator.Play(jumpStates[Random.Range(0, jumpStates.Length)], 0, 0f);
         }
 
-        public void Slide() => animator.SetTrigger(_slidingHash);
+        public void Slide()
+        {
+            if (animator != null)
+                animator.SetTrigger(_slidingHash);
+        }
 
-        public void Swallow() => animator.SetTrigger(_swallowHash);
+        public void Swallow()
+        {
+            if (animator != null)
+                animator.SetTrigger(_swallowHash);
+        }
 
         public void Die()
         {
+            if (animator == null)
+                return;
+
             animator.SetBool(_runningHash, false);
             animator.SetTrigger(_dyingHash);
         }

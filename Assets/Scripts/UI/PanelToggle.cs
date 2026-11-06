@@ -4,7 +4,7 @@ using UnityEngine.UI;
 namespace RunnerCube.UI
 {
     /// <summary>
-    /// Показывает скрытую панель. Логики не содержит.
+    /// Показывает или прячет панель. Ссылка на панель задаётся в инспекторе или берётся с этого объекта.
     /// </summary>
     public sealed class PanelToggle : MonoBehaviour
     {
@@ -18,10 +18,17 @@ namespace RunnerCube.UI
 
         public void Show(bool visible)
         {
+            if (panel == null)
+                return;
+
             if (panel.activeSelf != visible)
                 panel.SetActive(visible);
         }
 
-        public void Toggle() => Show(!panel.activeSelf);
+        public void Toggle()
+        {
+            if (panel != null)
+                panel.SetActive(!panel.activeSelf);
+        }
     }
 }

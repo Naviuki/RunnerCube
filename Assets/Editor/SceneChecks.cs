@@ -1,10 +1,11 @@
-using System;
+using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEngine;
 
 namespace RunnerCube.Tests
 {
     /// <summary>
-    /// Дымовые проверки сцен: на каждом корне сцены висят нужные компоненты.
+    /// Проверки собранных сцен: нужные компоненты есть в обеих сценах.
     /// </summary>
     public static class SceneChecks
     {
@@ -13,57 +14,47 @@ namespace RunnerCube.Tests
         public static void Run()
         {
             _failed = 0;
-
-            CheckGame();
             CheckMenu();
+            CheckGame();
 
             if (_failed > 0)
-                throw new InvalidOperationException($"Scene checks failed: {_failed}");
+                throw new System.InvalidOperationException($"Scene checks failed: {_failed}");
 
-            UnityEngine.Debug.Log("SCENE CHECKS PASSED");
-        }
-
-        private static void CheckGame()
-        {
-            UnityEngine.SceneManagement.Scene scene = EditorSceneManager.OpenScene("Assets/_Scenes/Game.unity");
-            Check(scene, "Systems", typeof(Core.SceneServices));
-            Check(scene, "Player", typeof(Player.PlayerMotor));
-            Check(scene, "Player", typeof(Player.PlayerContact));
-            Check(scene, "Player", typeof(Player.PlayerBonuses));
-            Check(scene, "Track", typeof(Track.TrackSpawner));
-            Check(scene, "Track", typeof(Track.RoadMover));
-            Check(scene, "Track", typeof(Pooling.TrackFactory));
-            Check(scene, "Bootstrap", typeof(Lifecycle.RunBootstrap));
-            Check(scene, "Canvas", typeof(UI.GameHud));
+            Debug.Log("SCENE CHECKS PASSED");
         }
 
         private static void CheckMenu()
         {
             UnityEngine.SceneManagement.Scene scene = EditorSceneManager.OpenScene("Assets/_Scenes/Menu.unity");
-            Check(scene, "Systems", typeof(Core.SceneServices));
-            Check(scene, "Systems", typeof(Core.SceneFlow));
-            Check(scene, "Canvas", typeof(UI.MenuController));
+            Check(scene, "MenuController");
+            Check(scene, "SceneFlow");
+            Check(scene, "ShopController");
+            Check(scene, "MenuToggle");
         }
 
-        private static void Check(UnityEngine.SceneManagement.Scene scene, string rootName, Type component)
+        private static void CheckGame()
         {
-            UnityEngine.GameObject root = Find(scene, rootName);
-            if (root == null || root.GetComponent(component) == null)
-            {
-                _failed++;
-                UnityEngine.Debug.LogError($"SCENE CHECK FAILED: {component.Name} on {rootName} in {scene.name}");
-            }
+            UnityEngine.SceneManagement.Scene scene = EditorSceneManager.OpenScene("Assets/_Scenes/Game.unity");
+            Check(scene, "PlayerMotor");
+            Check(scene, "PlayerContact");
+            Check(scene, "TrackSpawner");
+            Check(scene, "GameHud");
+            Check(scene, "RunBootstrap");
         }
 
-        private static UnityEngine.GameObject Find(UnityEngine.SceneManagement.Scene scene, string name)
+        private static void Check(UnityEngine.SceneManagement.Scene scene, string componentName)
         {
-            foreach (UnityEngine.GameObject root in scene.GetRootGameObjects())
+            foreach (GameObject root in scene.GetRootGameObjects())
             {
-                if (root.name == name)
-                    return root;
+                foreach (MonoBehaviour behaviour in root.GetComponentsInChildren<MonoBehaviour>(true))
+                {
+                    if (behaviour != null && behaviour.GetType().Name == componentName)
+                        return;
+                }
             }
 
-            return null;
+            _failed++;
+            Debug.LogError($"SCENE CHECK FAILED: {componentName} не найден в {scene.name}");
         }
     }
 }

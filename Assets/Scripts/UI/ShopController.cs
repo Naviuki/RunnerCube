@@ -1,25 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using RunnerCube.Core;
+using RunnerCube.Data;
 
 namespace RunnerCube.UI
 {
     /// <summary>
-    /// Магазин скинов: листает каталог, покупает и запоминает выбор.
+    /// Магазин скинов. Если каталог не подключён, показывает один скин без покупки.
     /// </summary>
     public sealed class ShopController : MonoBehaviour
     {
-        [SerializeField] private Data.SkinCatalog catalog;
+        [SerializeField] private SkinCatalog catalog;
         [SerializeField] private ShopPreview preview;
         [SerializeField] private GameObject buyButton;
         [SerializeField] private NumberLabel priceLabel;
         [SerializeField] private NumberLabel coinsLabel;
 
-        private Core.PlayerProgress _progress;
+        private PlayerProgress _progress;
         private int _index;
+
+        private int Count => catalog == null ? 0 : catalog.Count;
 
         private void Start()
         {
-            _progress = Core.SceneServices.Instance.Session.Progress;
-            _index = Mathf.Clamp(_progress.SelectedSkin, 0, catalog.Count - 1);
+            _progress = SceneServices.Instance.Session.Progress;
+            _index = Mathf.Max(0, Mathf.Min(_progress.SelectedSkin, Count - 1));
             Refresh();
         }
 
@@ -29,7 +35,10 @@ namespace RunnerCube.UI
 
         public void Buy()
         {
-            Data.SkinEntry entry = catalog.Get(_index);
+            if (Count == 0)
+                return;
+
+            SkinEntry entry = catalog.Get(_index);
             if (IsUnlocked() || !_progress.TrySpend(entry.Price))
                 return;
 
@@ -38,9 +47,18 @@ namespace RunnerCube.UI
             Refresh();
         }
 
+        public void Close()
+        {
+            if (transform.parent != null)
+                transform.parent.gameObject.SetActive(false);
+        }
+
         private void Step(int direction)
         {
-            _index = (_index + direction + catalog.Count) % catalog.Count;
+            if (Count <= 1)
+                return;
+
+            _index = (_index + direction + Count) % Count;
             if (IsUnlocked())
                 _progress.SelectedSkin = _index;
 
@@ -49,14 +67,13 @@ namespace RunnerCube.UI
 
         private bool IsUnlocked()
         {
-            Data.SkinEntry entry = catalog.Get(_index);
+            SkinEntry entry = catalog.Get(_index);
             return _progress.IsSkinUnlocked(entry.DisplayName, entry.Price);
         }
 
         private void Refresh()
         {
-            Data.SkinEntry entry = catalog.Get(_index);
-            bool unlocked = IsUnlocked();
+            SkinEntry entry = Count == 0 ? null : catalog.Get(_index);
 
             if (preview != null)
                 preview.Show(_index);
@@ -64,16 +81,17 @@ namespace RunnerCube.UI
             if (coinsLabel != null)
                 coinsLabel.Set(_progress.Coins);
 
-            if (priceLabel != null)
+            if (priceLabel != null && entry != null)
                 priceLabel.Set(entry.Price);
 
-            if (buyButton != null)
-                buyButton.SetActive(!unlocked);
-        }
+            if (buyButton == null)
+                return;
 
-        public void Close()
-        {
-            transform.parent.gameObject.SetActive(false);
+            bool locked = entry != null && !IsUnlocked();
+            buyButton.SetActive(locked);
+            Button button = buyButton.GetComponent<Button>();
+            if (button != null)
+                button.interactable = locked && _progress.Coins >= entry.Price;
         }
     }
 }

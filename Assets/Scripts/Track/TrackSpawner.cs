@@ -24,8 +24,31 @@ namespace RunnerCube.Track
         private float _nextTileZ;
         private float _nextRowZ;
 
+        private float LineWidth => (run != null ? run : RunSettings.Default).LineWidth;
+
+        private void Awake()
+        {
+            if (factory == null)
+                factory = GetComponent<TrackFactory>();
+
+            if (player == null)
+            {
+                Player.PlayerMotor motor = FindFirstObjectByType<Player.PlayerMotor>(FindObjectsInactive.Include);
+                if (motor != null)
+                    player = motor.transform;
+            }
+
+            _rows = new RowBuilder(settings);
+        }
+
         public void ResetTrack()
         {
+            if (settings == null)
+            {
+                Debug.LogWarning("TrackSpawner: не заданы настройки дороги", this);
+                return;
+            }
+
             foreach (PooledObject item in _items)
                 item.ReturnToPool();
 
@@ -39,20 +62,24 @@ namespace RunnerCube.Track
             _nextTileZ = 0f;
             _nextRowZ = settings.FirstRowDistance;
 
-            SpawnTile(settings.StartTiles[0]);
+            SpawnTile(settings.StartTiles.Count > 0 ? settings.StartTiles[0] : RandomRoadTile());
+
             for (int i = 1; i < settings.InitialTiles; i++)
-                SpawnTile(settings.RoadTiles[Random.Range(0, settings.RoadTiles.Count)]);
+                SpawnTile(RandomRoadTile());
         }
 
         private void Update()
         {
+            if (settings == null || factory == null || player == null)
+                return;
+
             if (!SceneServices.Instance.Session.IsPlaying)
                 return;
 
             float ahead = player.position.z + settings.SpawnDistance;
 
             while (_nextTileZ < ahead)
-                SpawnTile(settings.RoadTiles[Random.Range(0, settings.RoadTiles.Count)]);
+                SpawnTile(RandomRoadTile());
 
             while (_nextRowZ < ahead)
             {
@@ -63,8 +90,16 @@ namespace RunnerCube.Track
             Recycle();
         }
 
+        private GameObject RandomRoadTile()
+        {
+            return settings.RoadTiles.Count == 0 ? null : settings.RoadTiles[Random.Range(0, settings.RoadTiles.Count)];
+        }
+
         private void SpawnTile(GameObject prefab)
         {
+            if (prefab == null)
+                return;
+
             PooledObject tile = factory.Spawn(prefab, new Vector3(0f, 0f, _nextTileZ));
             _tiles.Add(tile);
             _nextTileZ += settings.TileLength;
@@ -72,14 +107,16 @@ namespace RunnerCube.Track
 
         private void SpawnRow(float z)
         {
-            List<PlacedItem> row = _rows.Build(z);
-            foreach (PlacedItem placed in row)
+            if (_rows == null)
+                return;
+
+            foreach (PlacedItem placed in _rows.Build(z))
             {
                 GameObject prefab = settings.FindPrefab(placed.Kind);
                 if (prefab == null)
                     continue;
 
-                Vector3 position = new Vector3(Lanes.ToX(placed.Lane, run.LineWidth), 0f, z);
+                Vector3 position = new Vector3(Lanes.ToX(placed.Lane, LineWidth), 0f, z);
                 PooledObject instance = factory.Spawn(prefab, position);
                 TrackItemMarker marker = instance.GetComponent<TrackItemMarker>();
                 if (marker != null)

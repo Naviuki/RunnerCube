@@ -3,7 +3,8 @@ using UnityEngine;
 namespace RunnerCube.UI
 {
     /// <summary>
-    /// Показывает модель выбранного скина и ничего не решает.
+    /// Показывает модель скина из каталога. Если каталог не подключён или модель не загрузилась,
+    /// просто ничего не делает, без исключений.
     /// </summary>
     public sealed class ShopPreview : MonoBehaviour
     {
@@ -12,12 +13,22 @@ namespace RunnerCube.UI
 
         private GameObject[] _instances = new GameObject[0];
 
-        private void Awake()
+        private void Start()
         {
-            _instances = new GameObject[catalog.Count];
-            for (int i = 0; i < catalog.Count; i++)
+            if (catalog == null || anchor == null)
             {
-                _instances[i] = Instantiate(catalog.Get(i).Prefab, anchor);
+                Debug.LogWarning("ShopPreview: не задан каталог или якорь", this);
+                return;
+            }
+
+            _instances = new GameObject[catalog.Count];
+            for (int i = 0; i < _instances.Length; i++)
+            {
+                GameObject prefab = catalog.Get(i).Prefab;
+                if (prefab == null)
+                    continue;
+
+                _instances[i] = Instantiate(prefab, anchor);
                 _instances[i].SetActive(false);
             }
         }
@@ -25,7 +36,11 @@ namespace RunnerCube.UI
         public void Show(int index)
         {
             for (int i = 0; i < _instances.Length; i++)
-                _instances[i].SetActive(i == index);
+            {
+                GameObject instance = _instances[i];
+                if (instance != null)
+                    instance.SetActive(i == index);
+            }
         }
     }
 }

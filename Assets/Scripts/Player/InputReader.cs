@@ -4,7 +4,7 @@ using RunnerCube.Core;
 namespace RunnerCube.Player
 {
     /// <summary>
-    /// Клавиши и свайпы с экрана. Отдаёт одно действие за кадр, чтобы игрок не смещался дважды.
+    /// Читает клавиатуру и мышь: A/D полосы, W или пробел прыжок, S подкат, плюс свайпы мышью.
     /// </summary>
     public sealed class InputReader : MonoBehaviour
     {
@@ -26,13 +26,13 @@ namespace RunnerCube.Player
 
         private void ReadKeyboard()
         {
-            if (Input.GetKeyDown(InputKeys.Left) || Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
                 Pressed?.Invoke(GameAction.Left);
-            else if (Input.GetKeyDown(InputKeys.Right) || Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
                 Pressed?.Invoke(GameAction.Right);
-            else if (Input.GetKeyDown(InputKeys.Jump) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
                 Pressed?.Invoke(GameAction.Jump);
-            else if (Input.GetKeyDown(InputKeys.Slide) || Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
                 Pressed?.Invoke(GameAction.Slide);
         }
 

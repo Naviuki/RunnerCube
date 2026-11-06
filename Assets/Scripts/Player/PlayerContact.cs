@@ -18,6 +18,17 @@ namespace RunnerCube.Player
 
         private bool _dead;
 
+        private RunSettings Config => settings != null ? settings : RunSettings.Default;
+
+        private void Awake()
+        {
+            if (motor == null)
+                motor = GetComponent<PlayerMotor>();
+
+            if (bonuses == null)
+                bonuses = GetComponent<PlayerBonuses>();
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (_dead || !other.TryGetComponent(out TrackItemMarker item) || !item.IsPickup)
@@ -45,17 +56,23 @@ namespace RunnerCube.Player
             {
                 case PickupKind.Coin:
                     session.AddCoins(GameConstants.CoinValue);
-                    effects.PlayCoin(transform.position);
+                    if (effects != null)
+                        effects.PlayCoin(transform.position);
                     break;
                 case PickupKind.Shield:
-                    bonuses.GrantShield();
+                    if (bonuses != null)
+                        bonuses.GrantShield();
                     break;
                 case PickupKind.Star:
-                    bonuses.GrantStar();
+                    if (bonuses != null)
+                        bonuses.GrantStar();
                     break;
                 case PickupKind.Dumbbell:
-                    motor.EatDumbbell();
-                    bonuses.EatDumbbell();
+                    if (motor != null)
+                        motor.EatDumbbell();
+
+                    if (bonuses != null)
+                        bonuses.EatDumbbell();
                     break;
             }
 
@@ -64,12 +81,11 @@ namespace RunnerCube.Player
 
         private void HitObstacle(TrackItemMarker item)
         {
-            ObstacleKind kind = item.ToObstacle();
-            SceneServices.Instance.Session.RaiseObstacle(kind);
+            SceneServices.Instance.Session.RaiseObstacle(item.ToObstacle());
 
-            if (motor.State.Shielded)
+            if (motor != null && motor.State.Shielded)
             {
-                if (!TrackItemRules.PassesUnder(item.Kind))
+                if (!TrackItemRules.PassesUnder(item.Kind) && bonuses != null)
                     bonuses.BreakShield();
 
                 item.Collect();
@@ -85,9 +101,14 @@ namespace RunnerCube.Player
                 return;
 
             _dead = true;
-            effects.Play(deathEffect, transform.position);
-            motor.Kill();
-            Invoke(nameof(FinishRun), settings.DeathDelay);
+            if (effects != null)
+                effects.Play(deathEffect, transform.position);
+
+            if (motor != null)
+                motor.Kill();
+
+            CancelInvoke(nameof(FinishRun));
+            Invoke(nameof(FinishRun), Config.DeathDelay);
         }
 
         private void FinishRun() => SceneServices.Instance.Session.End();

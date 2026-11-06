@@ -16,26 +16,42 @@ namespace RunnerCube.UI
 
         private void Start()
         {
+            if (scenes == null)
+                scenes = FindFirstObjectByType<SceneFlow>(FindObjectsInactive.Include);
+
             PlayerProgress progress = SceneServices.Instance.Session.Progress;
             int language = progress.Language;
 
-            foreach (MenuLabel label in labels)
-                label.Apply(language);
+            if (labels != null)
+            {
+                foreach (MenuLabel label in labels)
+                {
+                    if (label != null)
+                        label.Apply(language);
+                }
+            }
 
-            coinsLabel.Set(progress.Coins);
-            recordLabel.Set(progress.Record);
+            if (coinsLabel != null)
+                coinsLabel.Set(progress.Coins);
+
+            if (recordLabel != null)
+                recordLabel.Set(progress.Record);
         }
 
         public void Play()
         {
             Click();
-            scenes.StartRun();
+            if (scenes != null)
+                scenes.StartRun();
         }
 
         public void Quit()
         {
             Click();
-            scenes.Quit();
+            if (scenes != null)
+                scenes.Quit();
+            else
+                Application.Quit();
         }
 
         public void DeleteProgress()
@@ -45,18 +61,10 @@ namespace RunnerCube.UI
             PlayerPrefs.Save();
         }
 
-        public void ToggleShop()
-        {
-            Click();
-            MenuToggle shop = FindFirstObjectByType<MenuToggle>();
-            if (shop != null)
-                shop.Toggle();
-        }
-
         public void NextSkin()
         {
             Click();
-            ShopController shop = FindFirstObjectByType<ShopController>();
+            ShopController shop = FindFirstObjectByType<ShopController>(FindObjectsInactive.Include);
             if (shop != null)
                 shop.Next();
         }
@@ -64,7 +72,7 @@ namespace RunnerCube.UI
         public void PreviousSkin()
         {
             Click();
-            ShopController shop = FindFirstObjectByType<ShopController>();
+            ShopController shop = FindFirstObjectByType<ShopController>(FindObjectsInactive.Include);
             if (shop != null)
                 shop.Previous();
         }
@@ -72,9 +80,17 @@ namespace RunnerCube.UI
         public void BuySkin()
         {
             Click();
-            ShopController shop = FindFirstObjectByType<ShopController>();
+            ShopController shop = FindFirstObjectByType<ShopController>(FindObjectsInactive.Include);
             if (shop != null)
                 shop.Buy();
+        }
+
+        public void ToggleShop()
+        {
+            Click();
+            MenuToggle shop = FindFirstObjectByType<MenuToggle>(FindObjectsInactive.Include);
+            if (shop != null)
+                shop.Toggle();
         }
 
         public void ToggleSound()
@@ -99,7 +115,9 @@ namespace RunnerCube.UI
         {
             Click();
             SceneServices.Instance.Session.Progress.SetLanguage(language);
-            scenes.Restart();
+
+            if (scenes != null)
+                scenes.Restart();
         }
     }
 }

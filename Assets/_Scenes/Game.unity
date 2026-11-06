@@ -266,7 +266,8 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3634072944101429023, guid: 0e5fdda67f908fa418c54b6501c20a2d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -584,7 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d5181a84d7b9b4abf36c3fe21cfcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.RunPanel
-  scenes: {fileID: 0}
+  scenes: {fileID: 1360908389}
 --- !u!1 &219308043
 GameObject:
   m_ObjectHideFlags: 0
@@ -2648,7 +2649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd46b6f2c4698c94e9761bb63efd9599, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Player.PlayerMotor
-  settings: {fileID: 0}
+  settings: {fileID: 11400000, guid: 3f9a27c1b8e04d2a9c7f6e51d40b8a12, type: 2}
   body: {fileID: 902334402}
   view: {fileID: 902334401}
   input: {fileID: 902334400}
@@ -2709,7 +2710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f9079561f0d8db47a919e4195949582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Player.PlayerBonuses
-  settings: {fileID: 0}
+  settings: {fileID: 11400000, guid: 3f9a27c1b8e04d2a9c7f6e51d40b8a12, type: 2}
   motor: {fileID: 902334399}
   effects: {fileID: 902334405}
   shieldEffect: {fileID: 3589741030318817851, guid: 1bd286db7daea32498956227696855a0,
@@ -2735,7 +2736,7 @@ MonoBehaviour:
   motor: {fileID: 902334399}
   bonuses: {fileID: 902334403}
   effects: {fileID: 902334405}
-  settings: {fileID: 0}
+  settings: {fileID: 11400000, guid: 3f9a27c1b8e04d2a9c7f6e51d40b8a12, type: 2}
   deathEffect: {fileID: 3620593363868728368, guid: 7ba258835d492b542a06cbc6b2a61a9d,
     type: 3}
 --- !u!114 &902334405
@@ -3472,8 +3473,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6e3e1ebef6e6446b627ece90b9aa43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Track.TrackSpawner
-  settings: {fileID: 0}
-  run: {fileID: 0}
+  settings: {fileID: 11400000, guid: 8c4d11f0a2b34e7d9b6a5c3e2f1d0a45, type: 2}
+  run: {fileID: 11400000, guid: 3f9a27c1b8e04d2a9c7f6e51d40b8a12, type: 2}
   factory: {fileID: 1073936748}
   player: {fileID: 902334398}
 --- !u!114 &1073936748
@@ -4770,7 +4771,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d5181a84d7b9b4abf36c3fe21cfcc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.RunPanel
-  scenes: {fileID: 0}
+  scenes: {fileID: 1360908389}
 --- !u!1 &1360908385
 GameObject:
   m_ObjectHideFlags: 0
@@ -4782,6 +4783,7 @@ GameObject:
   - component: {fileID: 1360908388}
   - component: {fileID: 1360908387}
   - component: {fileID: 1360908386}
+  - component: {fileID: 1360908389}
   m_Layer: 0
   m_Name: Systems
   m_TagString: Untagged
@@ -4828,6 +4830,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1360908389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360908385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 188aa03dac8142246ab0fc6ec8bf5478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Core.SceneFlow
 --- !u!1 &1363130814
 GameObject:
   m_ObjectHideFlags: 0

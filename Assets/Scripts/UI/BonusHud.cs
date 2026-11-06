@@ -1,11 +1,10 @@
 using UnityEngine;
-using RunnerCube.Core;
 using RunnerCube.Player;
 
 namespace RunnerCube.UI
 {
     /// <summary>
-    /// Показывает кружки бонусов из таймеров игрока.
+    /// Показывает кружки бонусов из таймеров игрока. Без ссылок просто не рисует ничего.
     /// </summary>
     public sealed class BonusHud : MonoBehaviour
     {
@@ -26,7 +25,7 @@ namespace RunnerCube.UI
 
         private static void Set(GameObject icon, FillView fill, bool active, float value)
         {
-            if (icon.activeSelf != active)
+            if (icon != null && icon.activeSelf != active)
                 icon.SetActive(active);
 
             if (fill != null)

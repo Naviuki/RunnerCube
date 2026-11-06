@@ -4,7 +4,7 @@ using RunnerCube.Data;
 namespace RunnerCube.Player
 {
     /// <summary>
-    /// Скорость забега. Растёт по времени, падает от гантели, имеет предел из настроек.
+    /// Скорость забега. Растёт по времени, падает от гантели, ограничена настройками.
     /// </summary>
     public sealed class RunSpeed
     {
@@ -12,8 +12,8 @@ namespace RunnerCube.Player
 
         public RunSpeed(RunSettings settings)
         {
-            _settings = settings;
-            Current = settings.StartSpeed;
+            _settings = settings != null ? settings : RunSettings.Default;
+            Current = _settings.StartSpeed;
         }
 
         public float Current { get; private set; }
@@ -22,7 +22,7 @@ namespace RunnerCube.Player
 
         public void Grow(float deltaTime)
         {
-            if (Current >= _settings.MaxSpeed)
+            if (deltaTime <= 0f || Current >= _settings.MaxSpeed)
                 return;
 
             Current = Mathf.Min(Current + _settings.SpeedIncreasePerSecond * deltaTime, _settings.MaxSpeed);
