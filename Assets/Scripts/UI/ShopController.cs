@@ -1,5 +1,4 @@
 using UnityEngine;
-using RunnerCube.Core;
 
 namespace RunnerCube.UI
 {
@@ -14,19 +13,19 @@ namespace RunnerCube.UI
         [SerializeField] private NumberLabel priceLabel;
         [SerializeField] private NumberLabel coinsLabel;
 
-        private PlayerProgress _progress;
+        private Core.PlayerProgress _progress;
         private int _index;
 
         private void Start()
         {
-            _progress = SceneServices.Instance.Session.Progress;
+            _progress = Core.SceneServices.Instance.Session.Progress;
             _index = Mathf.Clamp(_progress.SelectedSkin, 0, catalog.Count - 1);
             Refresh();
         }
 
-        public void Next() => Move(1);
+        public void Next() => Step(1);
 
-        public void Previous() => Move(-1);
+        public void Previous() => Step(-1);
 
         public void Buy()
         {
@@ -39,7 +38,7 @@ namespace RunnerCube.UI
             Refresh();
         }
 
-        private void Move(int direction)
+        private void Step(int direction)
         {
             _index = (_index + direction + catalog.Count) % catalog.Count;
             if (IsUnlocked())
@@ -61,35 +60,9 @@ namespace RunnerCube.UI
 
             preview.Show(_index);
             coinsLabel.Set(_progress.Coins);
-            buyButton.SetActive(!unlocked);
             priceLabel.Set(entry.Price);
-        }
-    }
-
-    /// <summary>
-    /// Только показывает выбранный скин и ничего не решает.
-    /// </summary>
-    public sealed class ShopPreview : MonoBehaviour
-    {
-        [SerializeField] private Data.SkinCatalog catalog;
-        [SerializeField] private Transform anchor;
-
-        private GameObject[] _instances = new GameObject[0];
-
-        private void Awake()
-        {
-            _instances = new GameObject[catalog.Count];
-            for (int i = 0; i < catalog.Count; i++)
-            {
-                _instances[i] = Instantiate(catalog.Get(i).Prefab, anchor);
-                _instances[i].SetActive(false);
-            }
-        }
-
-        public void Show(int index)
-        {
-            for (int i = 0; i < _instances.Length; i++)
-                _instances[i].SetActive(i == index);
+            if (buyButton != null)
+                buyButton.SetActive(!unlocked);
         }
     }
 }

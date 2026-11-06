@@ -4,10 +4,17 @@ using UnityEngine.EventSystems;
 namespace RunnerCube.UI
 {
     /// <summary>
-    /// Пока курсор над меню, игрок не реагирует на клики. Пустое, пока нет забега.
+    /// Пока курсор над панелью интерфейса, игрок не реагирует на клики.
     /// </summary>
-    public sealed class UiPointerGuard : MonoBehaviour
+    public static class UiPointerGuard
     {
-        public static bool IsPointerOverUi => EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+        public static bool IsPointerOverUi
+        {
+            get
+            {
+                EventSystem system = EventSystem.current;
+                return system != null && system.IsPointerOverGameObject();
+            }
+        }
     }
 }

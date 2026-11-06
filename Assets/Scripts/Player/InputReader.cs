@@ -1,9 +1,10 @@
 using UnityEngine;
+using RunnerCube.Core;
 
 namespace RunnerCube.Player
 {
     /// <summary>
-    /// Читает клавиатуру и свайпы и отдаёт действия по одному за кадр.
+    /// Клавиши и свайпы с экрана. Отдаёт одно действие за кадр, чтобы игрок не смещался дважды.
     /// </summary>
     public sealed class InputReader : MonoBehaviour
     {
@@ -19,12 +20,24 @@ namespace RunnerCube.Player
             if (RunnerCube.UI.UiPointerGuard.IsPointerOverUi)
                 return;
 
-            if (ReadKey(out GameAction keyAction))
-            {
-                Pressed?.Invoke(keyAction);
-                return;
-            }
+            ReadKeyboard();
+            ReadSwipe();
+        }
 
+        private void ReadKeyboard()
+        {
+            if (Input.GetKeyDown(InputKeys.Left) || Input.GetKeyDown(KeyCode.LeftArrow))
+                Pressed?.Invoke(GameAction.Left);
+            else if (Input.GetKeyDown(InputKeys.Right) || Input.GetKeyDown(KeyCode.RightArrow))
+                Pressed?.Invoke(GameAction.Right);
+            else if (Input.GetKeyDown(InputKeys.Jump) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+                Pressed?.Invoke(GameAction.Jump);
+            else if (Input.GetKeyDown(InputKeys.Slide) || Input.GetKeyDown(KeyCode.DownArrow))
+                Pressed?.Invoke(GameAction.Slide);
+        }
+
+        private void ReadSwipe()
+        {
             if (Input.GetMouseButtonDown(0))
             {
                 _dragStart = Input.mousePosition;
@@ -47,36 +60,6 @@ namespace RunnerCube.Player
 
             _dragging = false;
             Pressed?.Invoke(DirectionOf(delta));
-        }
-
-        private static bool ReadKey(out GameAction action)
-        {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                action = GameAction.Left;
-                return true;
-            }
-
-            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                action = GameAction.Right;
-                return true;
-            }
-
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
-            {
-                action = GameAction.Jump;
-                return true;
-            }
-
-            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                action = GameAction.Slide;
-                return true;
-            }
-
-            action = GameAction.None;
-            return false;
         }
 
         private static GameAction DirectionOf(Vector2 delta)

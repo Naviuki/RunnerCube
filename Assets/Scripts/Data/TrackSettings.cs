@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RunnerCube.Data
 {
     /// <summary>
-    /// Дорога: какие плитки ставить, как часто появляются предметы и какой префаб соответствует варианту.
+    /// Дорога: плитки, частота рядов и префабы предметов. Все числа меняются в инспекторе ассета.
     /// </summary>
     [CreateAssetMenu(fileName = "TrackSettings", menuName = "RunnerCube/Track Settings")]
     public sealed class TrackSettings : ScriptableObject
@@ -21,12 +21,10 @@ namespace RunnerCube.Data
         [SerializeField, Min(1f)] private float rowGap = 25f;
         [SerializeField, Min(10f)] private float firstRowDistance = 120f;
         [SerializeField, Range(0f, 1f)] private float emptyRowChance = 0.15f;
-        [SerializeField, Range(0f, 1f)] private float patternChance = 0.35f;
 
         [Header("Варианты")]
-        [SerializeField] private List<TrackItemWeight> pickups = new List<TrackItemWeight>();
         [SerializeField] private List<TrackItemWeight> obstacles = new List<TrackItemWeight>();
-        [SerializeField] private List<TilePattern> patterns = new List<TilePattern>();
+        [SerializeField] private List<TrackItemWeight> pickups = new List<TrackItemWeight>();
 
         public IReadOnlyList<GameObject> StartTiles => startTiles;
         public IReadOnlyList<GameObject> RoadTiles => roadTiles;
@@ -37,23 +35,24 @@ namespace RunnerCube.Data
         public float RowGap => rowGap;
         public float FirstRowDistance => firstRowDistance;
         public float EmptyRowChance => emptyRowChance;
-        public float PatternChance => patternChance;
-        public IReadOnlyList<TrackItemWeight> Pickups => pickups;
         public IReadOnlyList<TrackItemWeight> Obstacles => obstacles;
-        public IReadOnlyList<TilePattern> Patterns => patterns;
+        public IReadOnlyList<TrackItemWeight> Pickups => pickups;
 
         public GameObject FindPrefab(TrackItemKind kind)
         {
-            for (int i = 0; i < pickups.Count; i++)
-            {
-                if (pickups[i].Kind == kind)
-                    return pickups[i].Prefab;
-            }
+            TrackItemWeight entry = Find(obstacles, kind);
+            if (entry == null)
+                entry = Find(pickups, kind);
 
-            for (int i = 0; i < obstacles.Count; i++)
+            return entry == null ? null : entry.Prefab;
+        }
+
+        private static TrackItemWeight Find(List<TrackItemWeight> list, TrackItemKind kind)
+        {
+            foreach (TrackItemWeight entry in list)
             {
-                if (obstacles[i].Kind == kind)
-                    return obstacles[i].Prefab;
+                if (entry.Kind == kind)
+                    return entry;
             }
 
             return null;

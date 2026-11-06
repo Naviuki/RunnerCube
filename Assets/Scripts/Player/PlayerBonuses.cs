@@ -11,6 +11,11 @@ namespace RunnerCube.Player
     {
         [SerializeField] private RunSettings settings;
         [SerializeField] private PlayerMotor motor;
+        [SerializeField] private GameEffects effects;
+        [SerializeField] private GameObject shieldEffect;
+        [SerializeField] private GameObject shieldBreakEffect;
+        [SerializeField] private GameObject starEffect;
+        [SerializeField] private GameObject dumbbellEffect;
 
         private float _shieldLeft;
         private float _starLeft;
@@ -25,13 +30,51 @@ namespace RunnerCube.Player
             if (SceneServices.Instance == null || !SceneServices.Instance.Session.IsPlaying)
                 return;
 
-            if (_shieldLeft > 0f)
-            {
-                _shieldLeft -= Time.deltaTime;
-                if (_shieldLeft <= 0f)
-                    BreakShield();
-            }
+            TickShield();
+            TickStar();
+        }
 
+        public void GrantShield()
+        {
+            _shieldLeft = settings.ShieldDuration;
+            motor.SetShield(true);
+            effects.Play(shieldEffect, transform.position);
+            SceneServices.Instance.Session.RaiseBonusStarted(BonusKind.Shield, settings.ShieldDuration);
+        }
+
+        public void GrantStar()
+        {
+            _starLeft = settings.StarDuration;
+            SceneServices.Instance.Session.SetMultiplier(GameConstants.StarMultiplier);
+            effects.Play(starEffect, transform.position);
+            SceneServices.Instance.Session.RaiseBonusStarted(BonusKind.Star, settings.StarDuration);
+        }
+
+        public void EatDumbbell() => effects.Play(dumbbellEffect, transform.position);
+
+        public void BreakShield()
+        {
+            if (_shieldLeft <= 0f)
+                return;
+
+            _shieldLeft = 0f;
+            motor.SetShield(false);
+            effects.Play(shieldBreakEffect, transform.position);
+            SceneServices.Instance.Session.RaiseBonusEnded(BonusKind.Shield);
+        }
+
+        private void TickShield()
+        {
+            if (_shieldLeft <= 0f)
+                return;
+
+            _shieldLeft -= Time.deltaTime;
+            if (_shieldLeft <= 0f)
+                BreakShield();
+        }
+
+        private void TickStar()
+        {
             if (_starLeft <= 0f)
                 return;
 
@@ -42,30 +85,6 @@ namespace RunnerCube.Player
             _starLeft = 0f;
             SceneServices.Instance.Session.SetMultiplier(1);
             SceneServices.Instance.Session.RaiseBonusEnded(BonusKind.Star);
-        }
-
-        public void GrantShield()
-        {
-            _shieldLeft = settings.ShieldDuration;
-            motor.SetShield(true);
-            SceneServices.Instance.Session.RaiseBonusStarted(BonusKind.Shield, settings.ShieldDuration);
-        }
-
-        public void GrantStar()
-        {
-            _starLeft = settings.StarDuration;
-            SceneServices.Instance.Session.SetMultiplier(GameConstants.StarMultiplier);
-            SceneServices.Instance.Session.RaiseBonusStarted(BonusKind.Star, settings.StarDuration);
-        }
-
-        public void BreakShield()
-        {
-            if (_shieldLeft <= 0f)
-                return;
-
-            _shieldLeft = 0f;
-            motor.SetShield(false);
-            SceneServices.Instance.Session.RaiseBonusEnded(BonusKind.Shield);
         }
     }
 }

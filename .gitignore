@@ -39,3 +39,4 @@ crashlytics-build.properties
 sysinfo.txt
 /[Aa]ssets/[Aa]ssetStoreTools*
 /Assets/StreamingAssets/aa.meta
+Builds/

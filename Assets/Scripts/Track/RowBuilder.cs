@@ -5,12 +5,12 @@ using RunnerCube.Data;
 namespace RunnerCube.Track
 {
     /// <summary>
-    /// Собирает ряд предметов: либо готовый паттерн, либо случайная пара препятствие и подбор.
+    /// Собирает ряд предметов: одно препятствие в случайной полосе и один подбор в соседней.
     /// </summary>
     public sealed class RowBuilder
     {
         private readonly TrackSettings _settings;
-        private readonly List<PlacedItem> _row = new List<PlacedItem>(4);
+        private readonly List<PlacedItem> _row = new List<PlacedItem>(2);
 
         public RowBuilder(TrackSettings settings)
         {
@@ -21,50 +21,22 @@ namespace RunnerCube.Track
         {
             _row.Clear();
 
-            if (Random.value < _settings.EmptyRowChance)
+            if (_settings.Obstacles.Count == 0 || Random.value < _settings.EmptyRowChance)
                 return _row;
-
-            TilePattern pattern = PickPattern();
-            if (pattern != null)
-            {
-                foreach (PatternItem item in pattern.Items)
-                    _row.Add(new PlacedItem(item.Kind, Lanes.Move(item.Lane, Lanes.Middle), z));
-
-                return _row;
-            }
 
             int blocked = Random.Range(0, Lanes.Count);
-            int free = RandomFreeLane(blocked);
-
             _row.Add(new PlacedItem(Pick(_settings.Obstacles), blocked, z));
-            _row.Add(new PlacedItem(Pick(_settings.Pickups), free, z));
+
+            if (_settings.Pickups.Count > 0)
+                _row.Add(new PlacedItem(Pick(_settings.Pickups), FreeLane(blocked), z));
+
             return _row;
         }
 
-        private static int RandomFreeLane(int blocked)
+        private static int FreeLane(int blocked)
         {
-            int lane = Random.Range(0, Lanes.Count);
-            return lane == blocked ? Lanes.Opposite(blocked) : lane;
-        }
-
-        private TilePattern PickPattern()
-        {
-            if (_settings.Patterns.Count == 0 || Random.value > _settings.PatternChance)
-                return null;
-
-            float total = 0f;
-            foreach (TilePattern pattern in _settings.Patterns)
-                total += pattern.Weight;
-
-            float roll = Random.value * total;
-            foreach (TilePattern pattern in _settings.Patterns)
-            {
-                roll -= pattern.Weight;
-                if (roll <= 0f)
-                    return pattern;
-            }
-
-            return _settings.Patterns[_settings.Patterns.Count - 1];
+            int lane = Random.Range(0, Lanes.Count - 1);
+            return lane >= blocked ? lane + 1 : lane;
         }
 
         private static TrackItemKind Pick(IReadOnlyList<TrackItemWeight> weights)

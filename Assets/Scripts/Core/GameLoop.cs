@@ -1,7 +1,7 @@
 namespace RunnerCube.Core
 {
     /// <summary>
-    /// Переходы состояния: меню -> игра -> пауза или финал, из паузы только обратно в игру.
+    /// Переходы состояния: меню или финал дают старт, из игры можно в паузу или финал, из паузы только назад в игру.
     /// </summary>
     public sealed class GameLoop
     {
@@ -12,7 +12,7 @@ namespace RunnerCube.Core
 
         public bool Begin()
         {
-            if (State == GameState.Playing)
+            if (State == GameState.Playing || State == GameState.Paused)
                 return false;
 
             State = GameState.Playing;

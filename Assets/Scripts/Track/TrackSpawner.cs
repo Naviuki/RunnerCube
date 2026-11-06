@@ -52,9 +52,7 @@ namespace RunnerCube.Track
             float ahead = player.position.z + settings.SpawnDistance;
 
             while (_nextTileZ < ahead)
-            {
                 SpawnTile(settings.RoadTiles[Random.Range(0, settings.RoadTiles.Count)]);
-            }
 
             while (_nextRowZ < ahead)
             {
@@ -85,13 +83,11 @@ namespace RunnerCube.Track
                 PooledObject instance = factory.Spawn(prefab, position);
                 TrackItemMarker marker = instance.GetComponent<TrackItemMarker>();
                 if (marker != null)
-                    marker.SetKind(placed.Kind, IsObstacle(placed.Kind));
+                    marker.SetKind(placed.Kind, TrackItemRules.IsObstacle(placed.Kind));
 
                 _items.Add(instance);
             }
         }
-
-        private static bool IsObstacle(TrackItemKind kind) => TrackItemRules.IsObstacle(kind);
 
         private void Recycle()
         {

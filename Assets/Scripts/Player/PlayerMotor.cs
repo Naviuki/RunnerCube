@@ -14,6 +14,7 @@ namespace RunnerCube.Player
         [SerializeField] private PlayerBody body;
         [SerializeField] private PlayerView view;
         [SerializeField] private InputReader input;
+        [SerializeField] private GameEffects effects;
 
         private PlayerState _state;
         private Vector3 _velocity;
@@ -100,9 +101,9 @@ namespace RunnerCube.Player
                 return;
 
             if (action == GameAction.Left)
-                _lane = Lanes.Move(_lane, -1);
+                _lane = Mathf.Max(0, _lane - 1);
             else if (action == GameAction.Right)
-                _lane = Lanes.Move(_lane, 1);
+                _lane = Mathf.Min(Lanes.Count - 1, _lane + 1);
             else if (action == GameAction.Jump)
                 TryJump();
             else if (action == GameAction.Slide && _state.StartSlide())

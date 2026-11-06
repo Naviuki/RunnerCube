@@ -35,5 +35,17 @@ namespace RunnerCube.UI
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
         }
+
+        public void SetLanguageEnglish() => SetLanguage(Languages.English);
+
+        public void SetLanguageRussian() => SetLanguage(Languages.Russian);
+
+        public void SetLanguageTatar() => SetLanguage(Languages.Tatar);
+
+        private void SetLanguage(int language)
+        {
+            SceneServices.Instance.Session.Progress.SetLanguage(language);
+            scenes.Restart();
+        }
     }
 }

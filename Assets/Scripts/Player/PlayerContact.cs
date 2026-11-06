@@ -12,7 +12,9 @@ namespace RunnerCube.Player
     {
         [SerializeField] private PlayerMotor motor;
         [SerializeField] private PlayerBonuses bonuses;
+        [SerializeField] private GameEffects effects;
         [SerializeField] private RunSettings settings;
+        [SerializeField] private GameObject deathEffect;
 
         private bool _dead;
 
@@ -43,6 +45,7 @@ namespace RunnerCube.Player
             {
                 case PickupKind.Coin:
                     session.AddCoins(GameConstants.CoinValue);
+                    effects.PlayCoin(transform.position);
                     break;
                 case PickupKind.Shield:
                     bonuses.GrantShield();
@@ -52,6 +55,7 @@ namespace RunnerCube.Player
                     break;
                 case PickupKind.Dumbbell:
                     motor.EatDumbbell();
+                    bonuses.EatDumbbell();
                     break;
             }
 
@@ -81,6 +85,7 @@ namespace RunnerCube.Player
                 return;
 
             _dead = true;
+            effects.Play(deathEffect, transform.position);
             motor.Kill();
             Invoke(nameof(FinishRun), settings.DeathDelay);
         }

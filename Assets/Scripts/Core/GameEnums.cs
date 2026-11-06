@@ -1,7 +1,7 @@
 namespace RunnerCube.Core
 {
     /// <summary>
-    /// Типы наград и препятствий. Значения общие для данных, игрока и UI.
+    /// Типы наград и препятствий. Общие для логики, данных и UI.
     /// </summary>
     public enum PickupKind
     {
