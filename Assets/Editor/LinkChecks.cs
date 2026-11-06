@@ -30,7 +30,7 @@ namespace RunnerCube.Tests
             Check("MenuController.coinsLabel", Field(controller, "coinsLabel"));
             Check("MenuController.recordLabel", Field(controller, "recordLabel"));
 
-            UI.ShopController shop = Object.FindFirstObjectByType<UI.ShopController>(FindObjectsInactive.Include);
+            UI.ShopController shop = Object.FindAnyObjectByType<UI.ShopController>(FindObjectsInactive.Include);
             Check("ShopController.catalog", Field(shop, "catalog"));
             Check("ShopController.priceLabel", Field(shop, "priceLabel"));
             Check("ShopController.preview", Field(shop, "preview"));
