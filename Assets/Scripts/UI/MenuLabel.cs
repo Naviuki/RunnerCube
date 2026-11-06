@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using RunnerCube.Data;
 
 namespace RunnerCube.UI
 {
     /// <summary>
-    /// Подпись меню. Текст берётся из таблицы локализации по ключу.
+    /// Подпись меню. Текст берётся из таблицы локализации по ключу и языку.
     /// </summary>
-    [RequireComponent(typeof(Text))]
     public sealed class MenuLabel : MonoBehaviour
     {
-        [SerializeField] private Data.Localization localization;
-        [SerializeField] private Data.TextKey key;
+        [SerializeField] private Localization localization;
+        [SerializeField] private TextKey key;
         [SerializeField] private Text text;
 
         private void Awake()
@@ -21,8 +21,10 @@ namespace RunnerCube.UI
 
         public void Apply(int language)
         {
-            if (localization != null)
-                text.text = localization.Get(key, language);
+            if (localization == null || text == null)
+                return;
+
+            text.text = localization.Get(key, language);
         }
     }
 }

@@ -16,8 +16,16 @@ namespace RunnerCube.UI
                 text = GetComponent<Text>();
         }
 
-        public void Set(int value) => text.text = value.ToString();
+        public void Set(int value)
+        {
+            if (text != null)
+                text.text = value.ToString();
+        }
 
-        public void Set(string value) => text.text = value;
+        public void Set(string value)
+        {
+            if (text != null)
+                text.text = value;
+        }
     }
 }

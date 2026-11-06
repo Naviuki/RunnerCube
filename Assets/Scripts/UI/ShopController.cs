@@ -58,11 +58,22 @@ namespace RunnerCube.UI
             Data.SkinEntry entry = catalog.Get(_index);
             bool unlocked = IsUnlocked();
 
-            preview.Show(_index);
-            coinsLabel.Set(_progress.Coins);
-            priceLabel.Set(entry.Price);
+            if (preview != null)
+                preview.Show(_index);
+
+            if (coinsLabel != null)
+                coinsLabel.Set(_progress.Coins);
+
+            if (priceLabel != null)
+                priceLabel.Set(entry.Price);
+
             if (buyButton != null)
                 buyButton.SetActive(!unlocked);
+        }
+
+        public void Close()
+        {
+            transform.parent.gameObject.SetActive(false);
         }
     }
 }

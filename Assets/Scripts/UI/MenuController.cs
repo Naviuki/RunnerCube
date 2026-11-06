@@ -1,11 +1,10 @@
 using UnityEngine;
 using RunnerCube.Core;
-using RunnerCube.Data;
 
 namespace RunnerCube.UI
 {
     /// <summary>
-    /// Меню: подписи, счётчики и переходы. Панели меню живут в сцене и управляются PanelToggle.
+    /// Кнопки меню: переходы, звук, язык и удаление прогресса.
     /// </summary>
     public sealed class MenuController : MonoBehaviour
     {
@@ -13,6 +12,7 @@ namespace RunnerCube.UI
         [SerializeField] private MenuLabel[] labels = new MenuLabel[0];
         [SerializeField] private NumberLabel coinsLabel;
         [SerializeField] private NumberLabel recordLabel;
+        [SerializeField] private AudioSource clickSource;
 
         private void Start()
         {
@@ -26,24 +26,78 @@ namespace RunnerCube.UI
             recordLabel.Set(progress.Record);
         }
 
-        public void Play() => scenes.StartRun();
+        public void Play()
+        {
+            Click();
+            scenes.StartRun();
+        }
 
-        public void Quit() => scenes.Quit();
+        public void Quit()
+        {
+            Click();
+            scenes.Quit();
+        }
 
         public void DeleteProgress()
         {
+            Click();
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
         }
 
-        public void SetLanguageEnglish() => SetLanguage(Languages.English);
+        public void ToggleShop()
+        {
+            Click();
+            MenuToggle shop = FindFirstObjectByType<MenuToggle>();
+            if (shop != null)
+                shop.Toggle();
+        }
 
-        public void SetLanguageRussian() => SetLanguage(Languages.Russian);
+        public void NextSkin()
+        {
+            Click();
+            ShopController shop = FindFirstObjectByType<ShopController>();
+            if (shop != null)
+                shop.Next();
+        }
 
-        public void SetLanguageTatar() => SetLanguage(Languages.Tatar);
+        public void PreviousSkin()
+        {
+            Click();
+            ShopController shop = FindFirstObjectByType<ShopController>();
+            if (shop != null)
+                shop.Previous();
+        }
+
+        public void BuySkin()
+        {
+            Click();
+            ShopController shop = FindFirstObjectByType<ShopController>();
+            if (shop != null)
+                shop.Buy();
+        }
+
+        public void ToggleSound()
+        {
+            Click();
+            AudioListener.volume = AudioListener.volume > 0f ? 0f : 1f;
+        }
+
+        public void SetRussian() => SetLanguage(Languages.Russian);
+
+        public void SetEnglish() => SetLanguage(Languages.English);
+
+        public void SetTatar() => SetLanguage(Languages.Tatar);
+
+        private void Click()
+        {
+            if (clickSource != null && clickSource.clip != null)
+                clickSource.PlayOneShot(clickSource.clip);
+        }
 
         private void SetLanguage(int language)
         {
+            Click();
             SceneServices.Instance.Session.Progress.SetLanguage(language);
             scenes.Restart();
         }

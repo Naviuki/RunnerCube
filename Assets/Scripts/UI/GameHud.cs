@@ -4,7 +4,7 @@ using RunnerCube.Core;
 namespace RunnerCube.UI
 {
     /// <summary>
-    /// HUD забега: счёт, монеты, панели паузы и финала. Только подписка на события и показ.
+    /// HUD забега: счёт, монеты и панели. Никакой логики, только реакция на события.
     /// </summary>
     public sealed class GameHud : MonoBehaviour
     {
@@ -33,12 +33,12 @@ namespace RunnerCube.UI
 
         private void OnDestroy()
         {
-            if (_events == null)
-                return;
-
-            _events.StateChanged -= OnState;
-            _events.ScoreChanged -= OnScore;
-            _events.CoinsChanged -= OnCoins;
+            if (_events != null)
+            {
+                _events.StateChanged -= OnState;
+                _events.ScoreChanged -= OnScore;
+                _events.CoinsChanged -= OnCoins;
+            }
         }
 
         private void OnState(GameState state)
