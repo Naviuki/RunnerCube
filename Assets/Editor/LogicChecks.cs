@@ -2,12 +2,11 @@ using System;
 using RunnerCube.Core;
 using RunnerCube.Data;
 using RunnerCube.Player;
-using RunnerCube.Track;
 
 namespace RunnerCube.Tests
 {
     /// <summary>
-    /// Проверки логики без сцены: состояние, счёт, полосы, правила встреч и скорость.
+    /// Проверки логики без сцены: состояние забега, счёт, полосы, правила встреч, скорость и таймеры.
     /// </summary>
     public static class LogicChecks
     {
@@ -18,16 +17,18 @@ namespace RunnerCube.Tests
             _failed = 0;
 
             StateGoesOnlyForward();
-            ScoreDoubleWithStar();
+            ScoreDoublesWithStar();
             LanesFit();
-            PickupsAreNotObstacles();
+            ItemRulesHold();
             SpeedStopsAtLimit();
             PauseDoesNotStartFromMenu();
+            BonusTimerClamps();
+            ShieldNeedsNoDamageWhenActive();
 
             if (_failed > 0)
                 throw new InvalidOperationException($"Logic checks failed: {_failed}");
 
-            UnityEngine.Debug.Log("LOGIC CHECKS PASSED: 6");
+            UnityEngine.Debug.Log("LOGIC CHECKS PASSED: 8");
         }
 
         private static void Check(bool condition, string name)
@@ -52,7 +53,7 @@ namespace RunnerCube.Tests
             Check(loop.Begin(), "restart from game over");
         }
 
-        private static void ScoreDoubleWithStar()
+        private static void ScoreDoublesWithStar()
         {
             ScoreModel score = new ScoreModel();
             score.Tick(1f);
@@ -65,17 +66,18 @@ namespace RunnerCube.Tests
 
         private static void LanesFit()
         {
-            Check(Lanes.ToX(0, 4f) == -4f, "left lane");
-            Check(Lanes.ToX(1, 4f) == 0f, "middle lane");
-            Check(Lanes.ToX(2, 4f) == 4f, "right lane");
+            Check(Track.Lanes.ToX(0, 4f) == -4f, "left lane");
+            Check(Track.Lanes.ToX(1, 4f) == 0f, "middle lane");
+            Check(Track.Lanes.ToX(2, 4f) == 4f, "right lane");
         }
 
-        private static void PickupsAreNotObstacles()
+        private static void ItemRulesHold()
         {
             Check(TrackItemRules.IsPickup(TrackItemKind.Coin), "coin is pickup");
             Check(!TrackItemRules.IsObstacle(TrackItemKind.Coin), "coin is not obstacle");
             Check(TrackItemRules.PassesUnder(TrackItemKind.LowBarrier), "passes under barrier");
-            Check(!TrackItemRules.PassesUnder(TrackItemKind.BigLog), "no pass under log");
+            Check(Player.ContactRules.ConsumesShield(TrackItemKind.BigLog), "log consumes shield");
+            Check(!Player.ContactRules.ConsumesShield(TrackItemKind.LowBarrier), "barrier keeps shield");
         }
 
         private static void SpeedStopsAtLimit()
@@ -95,6 +97,19 @@ namespace RunnerCube.Tests
             GameLoop loop = new GameLoop();
             Check(!loop.TogglePause(), "toggle from menu");
             Check(loop.State == GameState.Menu, "state stays menu");
+        }
+
+        private static void BonusTimerClamps()
+        {
+            Check(Player.BonusRules.ClampLeft(0.2f, 0.5f) == 0f, "timer clamps to zero");
+            Check(Player.BonusRules.Fill(5f, 10f) == 0.5f, "fill is half");
+            Check(Player.BonusRules.Fill(5f, 0f) == 0f, "zero duration");
+        }
+
+        private static void ShieldNeedsNoDamageWhenActive()
+        {
+            Check(Player.ContactRules.BlocksDamage(false), "no shield means damage");
+            Check(!Player.ContactRules.BlocksDamage(true), "shield blocks damage");
         }
     }
 }
