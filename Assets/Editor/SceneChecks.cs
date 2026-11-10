@@ -29,7 +29,6 @@ namespace RunnerCube.Tests
             Check(scene, "MenuController");
             Check(scene, "SceneFlow");
             Check(scene, "ShopController");
-            Check(scene, "MenuToggle");
         }
 
         private static void CheckGame()

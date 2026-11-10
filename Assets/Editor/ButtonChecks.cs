@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,12 @@ namespace RunnerCube.Tests
             {
                 foreach (Button button in root.GetComponentsInChildren<Button>(true))
                 {
+                    if (button.onClick.GetPersistentEventCount() == 0)
+                    {
+                        _failed++;
+                        Debug.LogError($"BUTTON CHECK: у кнопки {button.name} в {path} нет обработчика");
+                    }
+
                     for (int i = 0; i < button.onClick.GetPersistentEventCount(); i++)
                     {
                         if (button.onClick.GetPersistentTarget(i) != null)
@@ -38,6 +45,39 @@ namespace RunnerCube.Tests
                         _failed++;
                         Debug.LogError($"BUTTON CHECK: пустая цель у {button.name} в {path}");
                     }
+                }
+
+                foreach (MonoBehaviour behaviour in root.GetComponentsInChildren<MonoBehaviour>(true))
+                    CheckEvents(behaviour, path);
+            }
+        }
+
+        private static void CheckEvents(MonoBehaviour behaviour, string path)
+        {
+            SerializedObject serialized = new SerializedObject(behaviour);
+            List<string> paths = new List<string>();
+            SerializedProperty iterator = serialized.GetIterator();
+
+            while (iterator.NextVisible(true))
+            {
+                if (iterator.name == "m_PersistentCalls")
+                    paths.Add(iterator.propertyPath);
+            }
+
+            foreach (string eventPath in paths)
+            {
+                SerializedProperty calls = serialized.FindProperty(eventPath).FindPropertyRelative("m_Calls");
+                for (int i = 0; i < calls.arraySize; i++)
+                {
+                    SerializedProperty call = calls.GetArrayElementAtIndex(i);
+                    Object receiver = call.FindPropertyRelative("m_Target").objectReferenceValue;
+                    string method = call.FindPropertyRelative("m_MethodName").stringValue;
+
+                    if (receiver != null && !string.IsNullOrEmpty(method))
+                        continue;
+
+                    _failed++;
+                    Debug.LogError($"BUTTON CHECK: пустой вызов у {behaviour.name} в {path}");
                 }
             }
         }

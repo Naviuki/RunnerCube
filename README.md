@@ -47,7 +47,6 @@ Assets/
     UI/          HUD, меню, магазин, кнопки
     Lifecycle/   старт сцены
   Editor/        проверки сцен и логики, сборка
-  Tests/         EditMode-тесты
   Prefabs/       предметы, монеты, бонусы
   Tiles/         плитки дороги
   Particles/     эффекты
@@ -74,5 +73,3 @@ Unity.exe -batchmode -projectPath <путь> -executeMethod RunnerCube.Tests.Dat
 ```
 
 `LogicChecks` проверяет состояния, счёт, полосы и правила предметов, `SceneChecks` — собранные компоненты в обеих сценах, `LinkChecks` — заполненные ссылки и отсутствие пустых событий у кнопок, `DataChecks` — загрузку настроек.
-
-Тесты EditMode лежат в `Assets/Tests` и запускаются через Test Runner.

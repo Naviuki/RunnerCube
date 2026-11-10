@@ -1,35 +1,42 @@
 using UnityEditor;
+using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 namespace RunnerCube.EditorTools
 {
     /// <summary>
-    /// Собирает Windows-билд из меню Tools/Runner Cube. Папка Builds в git не попадает.
+    /// Собирает Windows-плеер. Путь задаётся аргументом командной строки -buildPath.
     /// </summary>
     public static class BuildScript
     {
-        private const string Output = "Builds/Windows/RunnerCube.exe";
-        private const string MenuPath = "Tools/Runner Cube/Build Windows";
-
-        [MenuItem(MenuPath)]
+        [MenuItem("Tools/Runner Cube/Build Windows")]
         public static void BuildWindows()
         {
-            PlayerSettings.productName = "RunnerCube";
-            PlayerSettings.companyName = "UKEI UG";
-
             BuildPlayerOptions options = new BuildPlayerOptions
             {
                 scenes = new[] { "Assets/_Scenes/Menu.unity", "Assets/_Scenes/Game.unity" },
-                locationPathName = Output,
+                locationPathName = OutputPath(),
                 target = BuildTarget.StandaloneWindows64,
                 options = BuildOptions.None
             };
 
-            UnityEditor.Build.Reporting.BuildReport report = BuildPipeline.BuildPlayer(options);
+            BuildReport report = BuildPipeline.BuildPlayer(options);
             Debug.Log($"BUILD RESULT result={report.summary.result} errors={report.summary.totalErrors} size={report.summary.totalSize}");
 
-            if (report.summary.result != UnityEditor.Build.Reporting.BuildResult.Succeeded)
+            if (report.summary.result != BuildResult.Succeeded)
                 throw new UnityEditor.Build.BuildFailedException("Сборка не удалась, подробности в консоли.");
+        }
+
+        private static string OutputPath()
+        {
+            string[] args = System.Environment.GetCommandLineArgs();
+            for (int i = 0; i < args.Length - 1; i++)
+            {
+                if (args[i] == "-buildPath")
+                    return args[i + 1];
+            }
+
+            return "Builds/Windows/RunnerCube.exe";
         }
     }
 }

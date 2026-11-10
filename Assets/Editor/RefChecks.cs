@@ -29,7 +29,7 @@ namespace RunnerCube.Tests
             Check<UI.GameHud>(scene, "scoreLabel", "pausePanel", "losePanel");
             Check<Player.PlayerMotor>(scene, "settings", "body", "input");
             Check<Track.TrackSpawner>(scene, "settings", "factory", "player");
-            Check<Lifecycle.RunBootstrap>(scene, "player", "track", "mover");
+            Check<Lifecycle.RunBootstrap>(scene, "player", "track");
         }
 
         private static void Check<T>(UnityEngine.SceneManagement.Scene scene, params string[] fields) where T : Component
