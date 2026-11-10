@@ -1,39 +1,46 @@
 using UnityEngine;
-using RunnerCube.Core;
-using RunnerCube.Data;
 
 namespace RunnerCube.Track
 {
     /// <summary>
-    /// Помечает префаб предмета дороги: какой это вариант и как с ним встречаться.
+    /// Помечает префаб предмета дороги: подбор или препятствие и его тип.
     /// </summary>
     public sealed class TrackItemMarker : MonoBehaviour
     {
-        [SerializeField] private TrackItemKind kind = TrackItemKind.Coin;
-        [SerializeField] private bool obstacle;
+        [SerializeField] private bool pickup = true;
+        [SerializeField] private Core.PickupKind pickupKind = Core.PickupKind.Coin;
+        [SerializeField] private Core.ObstacleKind obstacleKind = Core.ObstacleKind.Log;
 
-        public TrackItemKind Kind => kind;
-        public bool IsObstacle => obstacle;
-        public bool IsPickup => !obstacle;
+        public bool IsPickup => pickup;
+        public bool IsObstacle => !pickup;
+        public Core.PickupKind Pickup => pickupKind;
+        public Core.ObstacleKind Obstacle => obstacleKind;
 
-        public void SetKind(TrackItemKind value, bool isObstacle)
+        public void SetPickup(Core.PickupKind kind)
         {
-            kind = value;
-            obstacle = isObstacle;
-
-            foreach (Collider body in GetComponentsInChildren<Collider>(true))
-                body.isTrigger = !isObstacle;
+            pickup = true;
+            pickupKind = kind;
+            SetTriggers(true);
         }
 
-        public PickupKind ToPickup() => TrackItemRules.ToPickup(kind);
-
-        public ObstacleKind ToObstacle() => kind == TrackItemKind.LowBarrier ? ObstacleKind.LowBarrier : ObstacleKind.Log;
+        public void SetObstacle(Core.ObstacleKind kind)
+        {
+            pickup = false;
+            obstacleKind = kind;
+            SetTriggers(false);
+        }
 
         public void Collect()
         {
             Pooling.PooledObject pooled = GetComponent<Pooling.PooledObject>();
             if (pooled != null)
                 pooled.ReturnToPool();
+        }
+
+        private void SetTriggers(bool trigger)
+        {
+            foreach (Collider body in GetComponentsInChildren<Collider>(true))
+                body.isTrigger = trigger;
         }
     }
 }

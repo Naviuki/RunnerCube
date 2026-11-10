@@ -5,14 +5,13 @@ using UnityEngine;
 namespace RunnerCube.Pooling
 {
     /// <summary>
-    /// Пул компонентов: держит выключенные экземпляры и отдаёт их повторно, не плодя мусор.
+    /// Пул компонентов одного префаба: держит выключенные экземпляры и отдаёт их повторно.
     /// </summary>
     public sealed class ObjectPool<T> where T : Component
     {
         private readonly Func<T> _create;
         private readonly Transform _root;
         private readonly Stack<T> _free = new Stack<T>();
-        private readonly List<T> _created = new List<T>();
 
         public ObjectPool(Func<T> create, Transform root, int prewarm = 0)
         {
@@ -20,21 +19,23 @@ namespace RunnerCube.Pooling
             _root = root;
 
             for (int i = 0; i < prewarm; i++)
-                _free.Push(CreateDisabled());
+            {
+                T item = CreateDisabled();
+                if (item != null)
+                    _free.Push(item);
+            }
         }
 
-        public int Total => _created.Count;
         public int Available => _free.Count;
-
-        public event Action<T> Taken;
-        public event Action<T> Returned;
 
         public T Rent(Vector3 position, Quaternion rotation)
         {
             T item = _free.Count > 0 ? _free.Pop() : CreateDisabled();
+            if (item == null)
+                return null;
+
             item.transform.SetPositionAndRotation(position, rotation);
             item.gameObject.SetActive(true);
-            Taken?.Invoke(item);
             return item;
         }
 
@@ -48,32 +49,20 @@ namespace RunnerCube.Pooling
                 item.transform.SetParent(_root, false);
 
             _free.Push(item);
-            Returned?.Invoke(item);
-        }
-
-        public void ReturnAll(IEnumerable<T> items)
-        {
-            foreach (T item in items)
-                Return(item);
         }
 
         public void Clear()
         {
             _free.Clear();
-            foreach (T item in _created)
-            {
-                if (item != null)
-                    UnityEngine.Object.Destroy(item.gameObject);
-            }
-
-            _created.Clear();
         }
 
         private T CreateDisabled()
         {
             T item = _create();
+            if (item == null)
+                return null;
+
             item.gameObject.SetActive(false);
-            _created.Add(item);
             return item;
         }
     }

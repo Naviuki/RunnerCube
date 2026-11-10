@@ -3,7 +3,7 @@ using UnityEngine;
 namespace RunnerCube.Player
 {
     /// <summary>
-    /// Коллайдер игрока: высота для стойки и для подката.
+    /// Высота и радиус коллайдера для стойки и подката.
     /// </summary>
     [RequireComponent(typeof(CharacterController))]
     public sealed class PlayerBody : MonoBehaviour

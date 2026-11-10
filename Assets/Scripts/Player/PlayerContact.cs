@@ -50,7 +50,7 @@ namespace RunnerCube.Player
         private void TakePickup(TrackItemMarker item)
         {
             RunSession session = SceneServices.Instance.Session;
-            PickupKind kind = item.ToPickup();
+            PickupKind kind = item.Pickup;
 
             switch (kind)
             {
@@ -81,11 +81,11 @@ namespace RunnerCube.Player
 
         private void HitObstacle(TrackItemMarker item)
         {
-            SceneServices.Instance.Session.RaiseObstacle(item.ToObstacle());
+            SceneServices.Instance.Session.RaiseObstacle(item.Obstacle);
 
             if (motor != null && motor.State.Shielded)
             {
-                if (!TrackItemRules.PassesUnder(item.Kind) && bonuses != null)
+                if (item.Obstacle != ObstacleKind.LowBarrier && bonuses != null)
                     bonuses.BreakShield();
 
                 item.Collect();

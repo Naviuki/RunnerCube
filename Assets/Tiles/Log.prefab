@@ -58,6 +58,11 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -81,9 +86,11 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8054771639167105124
 GameObject:
@@ -95,6 +102,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6407973971250274042}
   - component: {fileID: 7991805370846863919}
+  - component: {fileID: 6086390219742486796}
+  - component: {fileID: 1133812796885298725}
   m_Layer: 0
   m_Name: Log
   m_TagString: obstacle
@@ -139,3 +148,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8.020855, y: 2.0431542, z: 2.1040497}
   m_Center: {x: -0.06980324, y: -0.0018868446, z: 2.0306625}
+--- !u!114 &6086390219742486796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054771639167105124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 989c87dc2c81d724ca93a44d7305293c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Pooling.PooledObject
+--- !u!114 &1133812796885298725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054771639167105124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17bfc69f5ed57744aebe2afb2a90546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Track.TrackItemMarker
+  pickup: 0
+  pickupKind: 0
+  obstacleKind: 0

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 8035786939900965131}
   - component: {fileID: 2775617128797920034}
   - component: {fileID: 1661899320110413992}
+  - component: {fileID: 997362700537334567}
+  - component: {fileID: 1811378204583067983}
   m_Layer: 0
   m_Name: obstacle
   m_TagString: obstacle
@@ -98,6 +100,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8076865, y: 3.1059523, z: 0.8025632}
   m_Center: {x: 1.4037005, y: 1.8508337, z: -0.098718405}
+--- !u!114 &997362700537334567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2495770899130929687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 989c87dc2c81d724ca93a44d7305293c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Pooling.PooledObject
+--- !u!114 &1811378204583067983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2495770899130929687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17bfc69f5ed57744aebe2afb2a90546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Track.TrackItemMarker
+  pickup: 0
+  pickupKind: 0
+  obstacleKind: 0
 --- !u!1 &6858711239688170190
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,6 +185,11 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -177,7 +211,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}

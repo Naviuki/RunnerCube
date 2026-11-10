@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5025229703251486795}
   - component: {fileID: 3648442839405388804}
+  - component: {fileID: 4888954621633648069}
+  - component: {fileID: 2688136148836526233}
   m_Layer: 0
   m_Name: Bonus Star
   m_TagString: Star
@@ -54,6 +56,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.3102965, y: 1.3568361, z: 0.51311576}
   m_Center: {x: 0.016526937, y: 0.116150975, z: 0.0852164}
+--- !u!114 &4888954621633648069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820803010797329764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 989c87dc2c81d724ca93a44d7305293c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Pooling.PooledObject
+--- !u!114 &2688136148836526233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820803010797329764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17bfc69f5ed57744aebe2afb2a90546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Track.TrackItemMarker
+  pickup: 1
+  pickupKind: 2
+  obstacleKind: 0
 --- !u!1 &1712449666233735387
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +94,6 @@ GameObject:
   - component: {fileID: 2055901246873223777}
   - component: {fileID: 3109696921802264004}
   - component: {fileID: 919626673051580686}
-  - component: {fileID: 6191166081093494494}
   m_Layer: 0
   m_Name: star_example
   m_TagString: Untagged
@@ -113,6 +141,11 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -134,19 +167,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6191166081093494494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1712449666233735387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eff8cfe641fef8e4fa94f11b41682fe1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -8,7 +8,6 @@ namespace RunnerCube.Track
 {
     /// <summary>
     /// Собирает дорогу под игроком: плитки и ряды предметов появляются впереди, ушедшие в пул.
-    /// Движение выполняет RoadMover, тут только наполнение.
     /// </summary>
     public sealed class TrackSpawner : MonoBehaviour
     {
@@ -33,19 +32,17 @@ namespace RunnerCube.Track
 
             if (player == null)
             {
-                Player.PlayerMotor motor = FindFirstObjectByType<Player.PlayerMotor>(FindObjectsInactive.Include);
+                Player.PlayerMotor motor = FindAnyObjectByType<Player.PlayerMotor>(FindObjectsInactive.Include);
                 if (motor != null)
                     player = motor.transform;
             }
-
-            _rows = new RowBuilder(settings);
         }
 
         public void ResetTrack()
         {
-            if (settings == null)
+            if (settings == null || factory == null)
             {
-                Debug.LogWarning("TrackSpawner: не заданы настройки дороги", this);
+                Debug.LogError("TrackSpawner: не заданы настройки дороги или фабрика", this);
                 return;
             }
 
@@ -100,8 +97,10 @@ namespace RunnerCube.Track
             if (prefab == null)
                 return;
 
-            PooledObject tile = factory.Spawn(prefab, new Vector3(0f, 0f, _nextTileZ));
-            _tiles.Add(tile);
+            PooledObject tile = factory.SpawnTile(prefab, new Vector3(0f, 0f, _nextTileZ));
+            if (tile != null)
+                _tiles.Add(tile);
+
             _nextTileZ += settings.TileLength;
         }
 
@@ -117,12 +116,9 @@ namespace RunnerCube.Track
                     continue;
 
                 Vector3 position = new Vector3(Lanes.ToX(placed.Lane, LineWidth), 0f, z);
-                PooledObject instance = factory.Spawn(prefab, position);
-                TrackItemMarker marker = instance.GetComponent<TrackItemMarker>();
-                if (marker != null)
-                    marker.SetKind(placed.Kind, TrackItemRules.IsObstacle(placed.Kind));
-
-                _items.Add(instance);
+                PooledObject instance = factory.SpawnItem(prefab, position, placed.Kind);
+                if (instance != null)
+                    _items.Add(instance);
             }
         }
 

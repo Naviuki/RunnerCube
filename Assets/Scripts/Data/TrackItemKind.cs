@@ -1,8 +1,7 @@
+using UnityEngine;
+
 namespace RunnerCube.Data
 {
-    /// <summary>
-    /// Вариант предмета на полосе. Тот же префаб может работать препятствием и подбором.
-    /// </summary>
     public enum TrackItemKind
     {
         Coin,
@@ -14,6 +13,9 @@ namespace RunnerCube.Data
         LowBarrier
     }
 
+    /// <summary>
+    /// Правила для предметов: что подбирается, что бьёт и какой тип у каждого варианта.
+    /// </summary>
     public static class TrackItemRules
     {
         public static bool IsPickup(TrackItemKind kind)
@@ -45,6 +47,11 @@ namespace RunnerCube.Data
                 default:
                     return Core.PickupKind.Coin;
             }
+        }
+
+        public static Core.ObstacleKind ToObstacle(TrackItemKind kind)
+        {
+            return kind == TrackItemKind.LowBarrier ? Core.ObstacleKind.LowBarrier : Core.ObstacleKind.Log;
         }
 
         /// <summary>

@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace RunnerCube.Data
 {
-    /// <summary>
-    /// Пара «префаб дороги плюс как его встретить». Один префаб может быть и препятствием, и подбором.
-    /// </summary>
     [Serializable]
     public sealed class TrackItemWeight
     {

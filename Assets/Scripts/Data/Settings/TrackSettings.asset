@@ -34,32 +34,32 @@ MonoBehaviour:
   emptyRowChance: 0.15
   obstacles:
   - kind: 4
-    prefab: {fileID: 4560318811251038601, guid: 6057263b7cf4a1745a5634acb434386b,
+    prefab: {fileID: 6358961995127122028, guid: 6057263b7cf4a1745a5634acb434386b,
       type: 3}
     obstacle: 1
     weight: 2
   - kind: 5
-    prefab: {fileID: 6407973971250274042, guid: bfd69d60460a01e47993051dc35b7b9b,
+    prefab: {fileID: 8054771639167105124, guid: bfd69d60460a01e47993051dc35b7b9b,
       type: 3}
     obstacle: 1
     weight: 3
   pickups:
   - kind: 0
-    prefab: {fileID: 1272804948857251179, guid: 5ac883903529dcb4eacc9f62dcda6afa,
+    prefab: {fileID: 4520864078269186666, guid: 5ac883903529dcb4eacc9f62dcda6afa,
       type: 3}
     obstacle: 0
     weight: 8
   - kind: 1
-    prefab: {fileID: 651071253406840651, guid: fdc443a94126c5f4daae20d4ecd30265, type: 3}
-    obstacle: 0
-    weight: 0.35
-  - kind: 2
-    prefab: {fileID: 5025229703251486795, guid: cacd96cd9138e2b4695c85661449335f,
+    prefab: {fileID: 3323636061203801605, guid: fdc443a94126c5f4daae20d4ecd30265,
       type: 3}
     obstacle: 0
     weight: 0.35
+  - kind: 2
+    prefab: {fileID: 820803010797329764, guid: cacd96cd9138e2b4695c85661449335f, type: 3}
+    obstacle: 0
+    weight: 0.35
   - kind: 3
-    prefab: {fileID: 3809646739578206538, guid: 7650d9caa9e292348a589c3a970b54b7,
+    prefab: {fileID: 4581644246418252784, guid: 7650d9caa9e292348a589c3a970b54b7,
       type: 3}
     obstacle: 0
     weight: 0.35

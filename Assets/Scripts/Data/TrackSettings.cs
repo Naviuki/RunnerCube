@@ -26,6 +26,22 @@ namespace RunnerCube.Data
         [SerializeField] private List<TrackItemWeight> obstacles = new List<TrackItemWeight>();
         [SerializeField] private List<TrackItemWeight> pickups = new List<TrackItemWeight>();
 
+        private static TrackSettings _fallback;
+
+        /// <summary>
+        /// Значения по умолчанию, если ассет не подключён.
+        /// </summary>
+        public static TrackSettings Default
+        {
+            get
+            {
+                if (_fallback == null)
+                    _fallback = CreateInstance<TrackSettings>();
+
+                return _fallback;
+            }
+        }
+
         public IReadOnlyList<GameObject> StartTiles => startTiles;
         public IReadOnlyList<GameObject> RoadTiles => roadTiles;
         public float TileLength => tileLength;
