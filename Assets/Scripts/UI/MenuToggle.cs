@@ -3,7 +3,7 @@ using UnityEngine;
 namespace RunnerCube.UI
 {
     /// <summary>
-    /// Включает и выключает панель без отдельной подложки.
+    /// Включает и выключает панель. Если ссылка не задана, берёт объект с самим скриптом.
     /// </summary>
     public sealed class MenuToggle : MonoBehaviour
     {
@@ -13,14 +13,14 @@ namespace RunnerCube.UI
         {
             if (content == null)
                 content = gameObject;
-
-            content.SetActive(false);
         }
 
         public void Toggle()
         {
-            if (content != null)
-                content.SetActive(!content.activeSelf);
+            if (content == null)
+                return;
+
+            content.SetActive(!content.activeSelf);
         }
 
         public void Open()

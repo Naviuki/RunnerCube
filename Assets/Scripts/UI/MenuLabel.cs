@@ -17,6 +17,9 @@ namespace RunnerCube.UI
         {
             if (text == null)
                 text = GetComponent<Text>();
+
+            if (text == null)
+                text = GetComponentInChildren<Text>(true);
         }
 
         public void Apply(int language)
