@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace RunnerCube.Core
 {
@@ -32,7 +31,6 @@ namespace RunnerCube.Core
             Instance = this;
             Events = new GameEvents();
             Session = new RunSession(Events);
-            Debug.Log("SceneServices ready in " + SceneManager.GetActiveScene().name);
         }
 
         private void OnDestroy()

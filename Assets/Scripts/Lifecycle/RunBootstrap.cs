@@ -7,25 +7,20 @@ namespace RunnerCube.Lifecycle
 {
     /// <summary>
     /// Запускает забег в сцене Game: обнуляет игрока, ставит дорогу и включает сессию.
-    /// Недостающие ссылки ищет сам, чтобы сцена оставалась рабочей после правок.
     /// </summary>
     [DefaultExecutionOrder(-50)]
     public sealed class RunBootstrap : MonoBehaviour
     {
         [SerializeField] private PlayerMotor player;
         [SerializeField] private TrackSpawner track;
-        [SerializeField] private RoadMover mover;
 
         private void Awake()
         {
             if (player == null)
-                player = FindFirstObjectByType<PlayerMotor>(FindObjectsInactive.Include);
+                player = FindAnyObjectByType<PlayerMotor>(FindObjectsInactive.Include);
 
             if (track == null)
-                track = FindFirstObjectByType<TrackSpawner>(FindObjectsInactive.Include);
-
-            if (mover == null)
-                mover = FindFirstObjectByType<RoadMover>(FindObjectsInactive.Include);
+                track = FindAnyObjectByType<TrackSpawner>(FindObjectsInactive.Include);
         }
 
         private void Start()
@@ -35,9 +30,6 @@ namespace RunnerCube.Lifecycle
 
             if (track != null)
                 track.ResetTrack();
-
-            if (mover != null)
-                mover.Begin();
 
             SceneServices.Instance.Session.Begin();
         }

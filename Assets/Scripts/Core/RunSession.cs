@@ -55,6 +55,12 @@ namespace RunnerCube.Core
                 ChangeTimeAndState(State);
         }
 
+        public void Pause()
+        {
+            if (_loop.Pause())
+                ChangeTimeAndState(State);
+        }
+
         public void Resume()
         {
             if (_loop.Resume())

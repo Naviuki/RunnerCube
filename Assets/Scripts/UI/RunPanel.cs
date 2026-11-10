@@ -13,12 +13,12 @@ namespace RunnerCube.UI
         private void Awake()
         {
             if (scenes == null)
-                scenes = FindFirstObjectByType<SceneFlow>(FindObjectsInactive.Include);
+                scenes = FindAnyObjectByType<SceneFlow>(FindObjectsInactive.Include);
         }
 
-        public void Pause() => SceneServices.Instance.Session.TogglePause();
+        public void Pause() => SceneServices.Instance.Session.Pause();
 
-        public void Resume() => SceneServices.Instance.Session.TogglePause();
+        public void Resume() => SceneServices.Instance.Session.Resume();
 
         public void Restart()
         {
@@ -30,6 +30,12 @@ namespace RunnerCube.UI
         {
             if (scenes != null)
                 scenes.LoadMenu();
+        }
+
+        public void Quit()
+        {
+            if (scenes != null)
+                scenes.Quit();
         }
     }
 }

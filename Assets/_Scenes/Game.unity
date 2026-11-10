@@ -642,19 +642,7 @@ MonoBehaviour:
   - eventID: 3
     callback:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: Scenes, Assembly-CSharp
-          m_MethodName: LoadMenu
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 1
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
 --- !u!114 &219308046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1744,18 +1732,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: Scenes, Assembly-CSharp
-          m_MethodName: Resume
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 1123043237}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_MethodName: SetActive
@@ -2139,18 +2115,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 963194225}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &800489796
 MonoBehaviour:
@@ -2920,6 +2884,7 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194231}
   - component: {fileID: 963194233}
+  - component: {fileID: 963194234}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3081,6 +3046,20 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &963194234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82109fdb600a10a4aba9c75cfa690a0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Player.CameraFollow
+  target: {fileID: 902334398}
+  offset: {x: 0, y: 13, z: -30}
 --- !u!1 &979849740
 GameObject:
   m_ObjectHideFlags: 0
@@ -3270,7 +3249,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Lifecycle.RunBootstrap
   player: {fileID: 902334399}
   track: {fileID: 1073936747}
-  mover: {fileID: 1073936745}
 --- !u!4 &1032569044
 Transform:
   m_ObjectHideFlags: 0
@@ -3421,9 +3399,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1073936746}
   - component: {fileID: 1073936747}
-  - component: {fileID: 1073936745}
-  - component: {fileID: 1073936748}
   - component: {fileID: 1073936749}
+  - component: {fileID: 1073936750}
   m_Layer: 0
   m_Name: Track
   m_TagString: Untagged
@@ -3431,21 +3408,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1073936745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073936744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2eefd029d99ee0458d56d401e2203fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Track.RoadMover
-  player: {fileID: 902334398}
-  roadParent: {fileID: 1073936746}
-  itemsParent: {fileID: 1073936746}
 --- !u!4 &1073936746
 Transform:
   m_ObjectHideFlags: 0
@@ -3475,21 +3437,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Track.TrackSpawner
   settings: {fileID: 11400000, guid: 8c4d11f0a2b34e7d9b6a5c3e2f1d0a45, type: 2}
   run: {fileID: 11400000, guid: 3f9a27c1b8e04d2a9c7f6e51d40b8a12, type: 2}
-  factory: {fileID: 1073936748}
+  factory: {fileID: 1073936750}
   player: {fileID: 902334398}
---- !u!114 &1073936748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073936744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 831f995843b7ce54db11b15d527a6c8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Pooling.TrackFactory
-  registry: {fileID: 1073936749}
 --- !u!114 &1073936749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3502,6 +3451,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0457850f431484d49a7034d6aa386230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Pooling.PoolRegistry
+--- !u!114 &1073936750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1073936744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63bdf8ba134a3e942b40754654d11487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.Track.TrackFactory
+  registry: {fileID: 0}
 --- !u!1 &1087554634
 GameObject:
   m_ObjectHideFlags: 0
@@ -3687,19 +3649,7 @@ MonoBehaviour:
   - eventID: 3
     callback:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: Scenes, Assembly-CSharp
-          m_MethodName: LoadMenu
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
 --- !u!114 &1089253491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3850,18 +3800,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: Scenes, Assembly-CSharp
-          m_MethodName: Resume
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 1123043237}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_MethodName: SetActive
@@ -4212,19 +4150,7 @@ MonoBehaviour:
   - eventID: 3
     callback:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: Scenes, Assembly-CSharp
-          m_MethodName: Pause
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
 --- !u!114 &1123043243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4414,7 +4340,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1335161964}
         m_TargetAssemblyTypeName: RunnerCube.UI.RunPanel, Assembly-CSharp
-        m_MethodName: ToMenu
+        m_MethodName: Quit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5131,19 +5057,7 @@ MonoBehaviour:
   - eventID: 3
     callback:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: Scenes, Assembly-CSharp
-          m_MethodName: Quit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
 --- !u!114 &1448111640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5187,7 +5101,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1448111641}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 181390595}
+        m_TargetAssemblyTypeName: RunnerCube.UI.RunPanel, Assembly-CSharp
+        m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1448111641
 MonoBehaviour:
   m_ObjectHideFlags: 0
