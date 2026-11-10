@@ -19,8 +19,8 @@ The code is split into layers, each one in its own namespace:
 - `RunnerCube.Core`: run state (`GameLoop`), score (`ScoreModel`), progress (`PlayerProgress`), events for UI and audio (`GameEvents`), scene transitions (`SceneFlow`), the per-scene service (`SceneServices`).
 - `RunnerCube.Data`: ScriptableObject settings (`RunSettings`, `TrackSettings`, `SkinCatalog`, `Localization`), item kinds and their rules.
 - `RunnerCube.Player`: input (`InputReader`), movement and poses (`PlayerMotor`, `PlayerState`, `PlayerBody`, `PlayerView`), bonuses (`PlayerBonuses`), collisions (`PlayerContact`), effects (`GameEffects`).
-- `RunnerCube.Track`: lanes, road tiles, row layout.
-- `RunnerCube.Pooling`: object pool and factory (`ObjectPool`, `PoolRegistry`, `TrackFactory`).
+- `RunnerCube.Track`: lanes, road tiles, item rows, the factory (`TrackFactory`).
+- `RunnerCube.Pooling`: object pool and pool registry (`ObjectPool`, `PoolRegistry`).
 - `RunnerCube.UI`: thin views on top of the logic (HUD, menu, shop, panels).
 - `RunnerCube.Lifecycle`: scene start-up.
 
@@ -42,8 +42,8 @@ Assets/
     Core/        state, score, progress, events, scene transitions
     Data/        ScriptableObject settings and data kinds
     Player/      input, movement, bonuses, collisions, effects
-    Track/       lanes, tile and item spawning
-    Pooling/     object pool and factory
+    Track/       lanes, tile and item spawning, factory
+    Pooling/     object pool and registry
     UI/          HUD, menu, shop, buttons
     Lifecycle/   scene start-up
   Editor/        scene and logic checks, build
@@ -73,3 +73,5 @@ Unity.exe -batchmode -projectPath <path> -executeMethod RunnerCube.Tests.DataChe
 ```
 
 `LogicChecks` covers states, scoring, lanes and item rules, `SceneChecks` looks at the assembled components in both scenes, `LinkChecks` verifies that references are filled and no button event is empty, and `DataChecks` loads the settings assets.
+
+`RowChecks`, `RefChecks`, `NullChecks`, `AssetChecks`, `ButtonChecks`, `PanelChecks`, `MenuButtonChecks`, `PrefabChecks`, `ShopPanelChecks` and `MenuNavChecks` run the same way: they cover item rows, references in prefabs and scenes, empty handlers, menu panels, the shop and navigation.

@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 43634030}
   - component: {fileID: 43634032}
   - component: {fileID: 43634031}
+  - component: {fileID: 43634033}
   m_Layer: 5
   m_Name: Record Text
   m_TagString: Untagged
@@ -198,6 +199,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43634029}
   m_CullTransparentMesh: 0
+--- !u!114 &43634033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43634029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d173eee0989a370458da394c27b3bcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.MenuLabel
+  localization: {fileID: 11400000, guid: 5d2a9e61c4b748f0b3e2d1a6f8c70b93, type: 2}
+  key: 14
+  text: {fileID: 43634031}
 --- !u!1001 &64879411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -283,6 +299,7 @@ GameObject:
   - component: {fileID: 115355842}
   - component: {fileID: 115355844}
   - component: {fileID: 115355843}
+  - component: {fileID: 115355845}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -351,6 +368,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 115355841}
   m_CullTransparentMesh: 0
+--- !u!114 &115355845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115355841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d173eee0989a370458da394c27b3bcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.MenuLabel
+  localization: {fileID: 11400000, guid: 5d2a9e61c4b748f0b3e2d1a6f8c70b93, type: 2}
+  key: 12
+  text: {fileID: 115355843}
 --- !u!1 &123915680
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,6 +957,7 @@ GameObject:
   - component: {fileID: 509410465}
   - component: {fileID: 509410470}
   - component: {fileID: 509410469}
+  - component: {fileID: 509410471}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1062,6 +1095,19 @@ MonoBehaviour:
   pausePanel: {fileID: 181390594}
   losePanel: {fileID: 1335161963}
   pauseButton: {fileID: 1123043243}
+--- !u!114 &509410471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 509410464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83f9c403d1d75af438b26bcac6736a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.SceneLabels
+  labels: []
 --- !u!1001 &511715220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1470,6 +1516,7 @@ GameObject:
   - component: {fileID: 732880830}
   - component: {fileID: 732880833}
   - component: {fileID: 732880832}
+  - component: {fileID: 732880834}
   m_Layer: 5
   m_Name: Text (Legacy) (1)
   m_TagString: Untagged
@@ -1538,6 +1585,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 732880829}
   m_CullTransparentMesh: 1
+--- !u!114 &732880834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732880829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d173eee0989a370458da394c27b3bcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.MenuLabel
+  localization: {fileID: 11400000, guid: 5d2a9e61c4b748f0b3e2d1a6f8c70b93, type: 2}
+  key: 4
+  text: {fileID: 732880832}
 --- !u!1001 &740352070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1942,6 +2004,7 @@ GameObject:
   - component: {fileID: 794418490}
   - component: {fileID: 794418493}
   - component: {fileID: 794418492}
+  - component: {fileID: 794418494}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -2010,6 +2073,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794418489}
   m_CullTransparentMesh: 1
+--- !u!114 &794418494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794418489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d173eee0989a370458da394c27b3bcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.MenuLabel
+  localization: {fileID: 11400000, guid: 5d2a9e61c4b748f0b3e2d1a6f8c70b93, type: 2}
+  key: 10
+  text: {fileID: 794418492}
 --- !u!1 &800489793
 GameObject:
   m_ObjectHideFlags: 0
@@ -2728,6 +2806,7 @@ GameObject:
   - component: {fileID: 949160236}
   - component: {fileID: 949160238}
   - component: {fileID: 949160237}
+  - component: {fileID: 949160239}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -2796,6 +2875,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949160235}
   m_CullTransparentMesh: 0
+--- !u!114 &949160239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949160235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d173eee0989a370458da394c27b3bcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.MenuLabel
+  localization: {fileID: 11400000, guid: 5d2a9e61c4b748f0b3e2d1a6f8c70b93, type: 2}
+  key: 4
+  text: {fileID: 949160237}
 --- !u!1 &962503540
 GameObject:
   m_ObjectHideFlags: 0
@@ -3071,6 +3165,7 @@ GameObject:
   - component: {fileID: 979849741}
   - component: {fileID: 979849743}
   - component: {fileID: 979849742}
+  - component: {fileID: 979849744}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -3139,6 +3234,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979849740}
   m_CullTransparentMesh: 0
+--- !u!114 &979849744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979849740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d173eee0989a370458da394c27b3bcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.MenuLabel
+  localization: {fileID: 11400000, guid: 5d2a9e61c4b748f0b3e2d1a6f8c70b93, type: 2}
+  key: 11
+  text: {fileID: 979849742}
 --- !u!1 &999968367
 GameObject:
   m_ObjectHideFlags: 0
@@ -4187,6 +4297,7 @@ GameObject:
   - component: {fileID: 1220771579}
   - component: {fileID: 1220771582}
   - component: {fileID: 1220771581}
+  - component: {fileID: 1220771583}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -4255,6 +4366,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220771578}
   m_CullTransparentMesh: 1
+--- !u!114 &1220771583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220771578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d173eee0989a370458da394c27b3bcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.MenuLabel
+  localization: {fileID: 11400000, guid: 5d2a9e61c4b748f0b3e2d1a6f8c70b93, type: 2}
+  key: 12
+  text: {fileID: 1220771581}
 --- !u!1 &1233144682
 GameObject:
   m_ObjectHideFlags: 0
@@ -5452,7 +5578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.32962966, y: 0.5352039}
   m_AnchorMax: {x: 0.6762963, y: 0.6045612}
-  m_AnchoredPosition: {x: -1, y: 40}
+  m_AnchoredPosition: {x: -1, y: 12}
   m_SizeDelta: {x: 119.56537, y: 37.24536}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1742606714
@@ -5812,6 +5938,7 @@ GameObject:
   - component: {fileID: 1890149021}
   - component: {fileID: 1890149024}
   - component: {fileID: 1890149023}
+  - component: {fileID: 1890149025}
   m_Layer: 5
   m_Name: Text (Legacy)
   m_TagString: Untagged
@@ -5880,6 +6007,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890149020}
   m_CullTransparentMesh: 1
+--- !u!114 &1890149025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890149020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d173eee0989a370458da394c27b3bcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.MenuLabel
+  localization: {fileID: 11400000, guid: 5d2a9e61c4b748f0b3e2d1a6f8c70b93, type: 2}
+  key: 11
+  text: {fileID: 1890149023}
 --- !u!1 &1931671103
 GameObject:
   m_ObjectHideFlags: 0
@@ -6350,6 +6492,7 @@ GameObject:
   - component: {fileID: 2122632542}
   - component: {fileID: 2122632544}
   - component: {fileID: 2122632543}
+  - component: {fileID: 2122632545}
   m_Layer: 5
   m_Name: You Lose
   m_TagString: Untagged
@@ -6418,6 +6561,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122632541}
   m_CullTransparentMesh: 0
+--- !u!114 &2122632545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122632541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d173eee0989a370458da394c27b3bcd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunnerCube.UI.MenuLabel
+  localization: {fileID: 11400000, guid: 5d2a9e61c4b748f0b3e2d1a6f8c70b93, type: 2}
+  key: 13
+  text: {fileID: 2122632543}
 --- !u!1001 &2145767039
 PrefabInstance:
   m_ObjectHideFlags: 0

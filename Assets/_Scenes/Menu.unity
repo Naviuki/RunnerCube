@@ -1651,6 +1651,9 @@ MonoBehaviour:
   coinsLabel: {fileID: 842660229}
   recordLabel: {fileID: 2038894715}
   clickSource: {fileID: 3358394923951718513}
+  soundIcon: {fileID: 724358616}
+  soundOn: {fileID: 2488193864150925076, guid: 3a06c9024f3e4c4449b31a0061a486d2, type: 3}
+  soundOff: {fileID: 2654917550513951137, guid: 3a06c9024f3e4c4449b31a0061a486d2, type: 3}
 --- !u!1 &282078505
 GameObject:
   m_ObjectHideFlags: 0
@@ -2307,7 +2310,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.006}
   m_AnchorMin: {x: 0.015332917, y: 0.94386697}
   m_AnchorMax: {x: 0.126, y: 0.99433863}
-  m_AnchoredPosition: {x: -73.83209, y: -28.054298}
+  m_AnchoredPosition: {x: -115, y: -28.054298}
   m_SizeDelta: {x: 86.61144, y: 111.25193}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &387793808
@@ -3349,7 +3352,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 257063339}
         m_TargetAssemblyTypeName: RunnerCube.UI.MenuController, Assembly-CSharp
-        m_MethodName: ClosePanels
+        m_MethodName: CloseAbout
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6729,7 +6732,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 257063339}
         m_TargetAssemblyTypeName: RunnerCube.UI.MenuController, Assembly-CSharp
-        m_MethodName: Quit
+        m_MethodName: OpenExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7073,7 +7076,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 963194227}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 5
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -7884,7 +7887,7 @@ MonoBehaviour:
   catalog: {fileID: 11400000, guid: b71e5d903ca24f68a1d2c8e7b5f30926, type: 2}
   preview: {fileID: 50536655}
   buyButton: {fileID: 1510531748}
-  priceLabel: {fileID: 735004361}
+  priceText: {fileID: 898124484}
   coinsLabel: {fileID: 458470767}
 --- !u!1 &1447364809
 GameObject:

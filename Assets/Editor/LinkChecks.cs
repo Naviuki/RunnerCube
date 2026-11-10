@@ -29,10 +29,13 @@ namespace RunnerCube.Tests
             Check("MenuController.scenes", Field(controller, "scenes"));
             Check("MenuController.coinsLabel", Field(controller, "coinsLabel"));
             Check("MenuController.recordLabel", Field(controller, "recordLabel"));
+            Check("MenuController.soundIcon", Field(controller, "soundIcon"));
+            Check("MenuController.soundOn", Field(controller, "soundOn"));
+            Check("MenuController.soundOff", Field(controller, "soundOff"));
 
             UI.ShopController shop = Object.FindAnyObjectByType<UI.ShopController>(FindObjectsInactive.Include);
             Check("ShopController.catalog", Field(shop, "catalog"));
-            Check("ShopController.priceLabel", Field(shop, "priceLabel"));
+            Check("ShopController.priceText", Field(shop, "priceText"));
             Check("ShopController.preview", Field(shop, "preview"));
             Check("Menu events", NoEmptyEvents(menu));
 

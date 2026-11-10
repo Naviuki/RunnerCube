@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using RunnerCube.Core;
 
 namespace RunnerCube.UI
@@ -11,6 +12,8 @@ namespace RunnerCube.UI
         private const string OptionsPath = "Options";
         private const string AboutPath = "Options/About Panel";
         private const string ExitPath = "ExitPanel";
+        private const string MenuPath = "Main Menu";
+        private const string LogoPath = "RunnerCUBE";
         private const float ShopCameraDistance = 100f;
 
         [SerializeField] private SceneFlow scenes;
@@ -18,6 +21,9 @@ namespace RunnerCube.UI
         [SerializeField] private NumberLabel coinsLabel;
         [SerializeField] private NumberLabel recordLabel;
         [SerializeField] private AudioSource clickSource;
+        [SerializeField] private Image soundIcon;
+        [SerializeField] private Sprite soundOn;
+        [SerializeField] private Sprite soundOff;
 
         private Camera _camera;
         private Vector3 _menuCameraPosition;
@@ -55,6 +61,8 @@ namespace RunnerCube.UI
 
             if (recordLabel != null)
                 recordLabel.Set(progress.Record);
+
+            ApplySoundIcon();
         }
 
         public void Play()
@@ -78,6 +86,12 @@ namespace RunnerCube.UI
             Click();
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
+
+            if (coinsLabel != null)
+                coinsLabel.Set(0);
+
+            if (recordLabel != null)
+                recordLabel.Set(0);
         }
 
         public void ToggleShop()
@@ -94,7 +108,11 @@ namespace RunnerCube.UI
         {
             Click();
             SetActive(FindChild(AboutPath), false);
-            Toggle(FindChild(OptionsPath));
+
+            GameObject options = FindChild(OptionsPath);
+            bool visible = options != null && !options.activeSelf;
+            SetActive(options, visible);
+            SetMenuVisible(!visible);
         }
 
         public void ToggleAbout()
@@ -114,6 +132,29 @@ namespace RunnerCube.UI
             SetActive(FindChild(AboutPath), false);
             SetActive(FindChild(ExitPath), false);
             SetShopVisible(false);
+            SetMenuVisible(true);
+        }
+
+        public void CloseAbout()
+        {
+            Click();
+            SetActive(FindChild(AboutPath), false);
+            SetActive(FindChild(OptionsPath), true);
+        }
+
+        public void OpenExit()
+        {
+            Click();
+            SetActive(FindChild(OptionsPath), false);
+            SetActive(FindChild(AboutPath), false);
+            SetActive(FindChild(ExitPath), true);
+            SetMenuVisible(false);
+        }
+
+        private void SetMenuVisible(bool visible)
+        {
+            SetActive(FindChild(MenuPath), visible);
+            SetActive(FindChild(LogoPath), visible);
         }
 
         public void NextSkin() => Shop(shop => shop.Next());
@@ -125,7 +166,9 @@ namespace RunnerCube.UI
         public void ToggleSound()
         {
             Click();
+
             AudioListener.volume = AudioListener.volume > 0f ? 0f : 1f;
+            ApplySoundIcon();
         }
 
         public void SetRussian() => SetLanguage(Languages.Russian);
@@ -216,6 +259,16 @@ namespace RunnerCube.UI
         {
             if (clickSource != null && clickSource.clip != null)
                 clickSource.PlayOneShot(clickSource.clip);
+        }
+
+        private void ApplySoundIcon()
+        {
+            if (soundIcon == null)
+                return;
+
+            Sprite sprite = AudioListener.volume > 0f ? soundOn : soundOff;
+            if (sprite != null)
+                soundIcon.sprite = sprite;
         }
 
         private void SetLanguage(int language)

@@ -13,21 +13,26 @@ namespace RunnerCube.UI
         [SerializeField] private TextKey key;
         [SerializeField] private Text text;
 
-        private void Awake()
-        {
-            if (text == null)
-                text = GetComponent<Text>();
-
-            if (text == null)
-                text = GetComponentInChildren<Text>(true);
-        }
+        private void Awake() => ResolveText();
 
         public void Apply(int language)
         {
+            ResolveText();
+
             if (localization == null || text == null)
                 return;
 
             text.text = localization.Get(key, language);
+        }
+
+        private void ResolveText()
+        {
+            if (text != null)
+                return;
+
+            text = GetComponent<Text>();
+            if (text == null)
+                text = GetComponentInChildren<Text>(true);
         }
     }
 }

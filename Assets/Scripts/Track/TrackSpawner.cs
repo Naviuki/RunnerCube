@@ -137,9 +137,17 @@ namespace RunnerCube.Track
 
             for (int i = _items.Count - 1; i >= 0; i--)
             {
-                if (_items[i] != null && _items[i].gameObject.activeSelf && _items[i].transform.position.z > behind)
+                PooledObject item = _items[i];
+                if (item == null)
+                {
+                    _items.RemoveAt(i);
+                    continue;
+                }
+
+                if (item.gameObject.activeSelf && item.transform.position.z > behind)
                     continue;
 
+                item.ReturnToPool();
                 _items.RemoveAt(i);
             }
         }

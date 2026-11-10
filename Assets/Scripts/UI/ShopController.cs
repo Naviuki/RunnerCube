@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace RunnerCube.UI
         [SerializeField] private Data.SkinCatalog catalog;
         [SerializeField] private ShopPreview preview;
         [SerializeField] private GameObject buyButton;
-        [SerializeField] private NumberLabel priceLabel;
+        [SerializeField] private TMP_Text priceText;
         [SerializeField] private NumberLabel coinsLabel;
 
         private Core.PlayerProgress _progress;
@@ -82,8 +83,8 @@ namespace RunnerCube.UI
             if (coinsLabel != null)
                 coinsLabel.Set(Progress.Coins);
 
-            if (priceLabel != null)
-                priceLabel.Set(entry == null ? 0 : entry.Price);
+            if (priceText != null)
+                priceText.text = entry == null ? string.Empty : entry.Price.ToString();
 
             if (buyButton == null)
                 return;

@@ -19,8 +19,8 @@
 - `RunnerCube.Core`: состояние забега (`GameLoop`), счёт (`ScoreModel`), прогресс (`PlayerProgress`), события для UI и звука (`GameEvents`), переходы между сценами (`SceneFlow`), сервис сцены (`SceneServices`).
 - `RunnerCube.Data`: настройки в ScriptableObject (`RunSettings`, `TrackSettings`, `SkinCatalog`, `Localization`), типы предметов и их правила.
 - `RunnerCube.Player`: ввод (`InputReader`), движение и позы (`PlayerMotor`, `PlayerState`, `PlayerBody`, `PlayerView`), бонусы (`PlayerBonuses`), столкновения (`PlayerContact`), эффекты (`GameEffects`).
-- `RunnerCube.Track`: полосы, плитки дороги, расстановка рядов предметов.
-- `RunnerCube.Pooling`: пул объектов и фабрика (`ObjectPool`, `PoolRegistry`, `TrackFactory`).
+- `RunnerCube.Track`: полосы, плитки дороги, расстановка рядов предметов, фабрика (`TrackFactory`).
+- `RunnerCube.Pooling`: пул объектов и реестр пулов (`ObjectPool`, `PoolRegistry`).
 - `RunnerCube.UI`: тонкие представления над логикой (HUD, меню, магазин, панели).
 - `RunnerCube.Lifecycle`: запуск сцены.
 
@@ -42,8 +42,8 @@ Assets/
     Core/        состояние, счёт, прогресс, события, переходы сцен
     Data/        ScriptableObject-настройки и типы данных
     Player/      ввод, движение, бонусы, столкновения, эффекты
-    Track/       полосы, спавн плиток и предметов
-    Pooling/     пул и фабрика объектов
+    Track/       полосы, спавн плиток и предметов, фабрика
+    Pooling/     пул и реестр объектов
     UI/          HUD, меню, магазин, кнопки
     Lifecycle/   старт сцены
   Editor/        проверки сцен и логики, сборка
@@ -73,3 +73,5 @@ Unity.exe -batchmode -projectPath <путь> -executeMethod RunnerCube.Tests.Dat
 ```
 
 `LogicChecks` проверяет состояния, счёт, полосы и правила предметов, `SceneChecks` — собранные компоненты в обеих сценах, `LinkChecks` — заполненные ссылки и отсутствие пустых событий у кнопок, `DataChecks` — загрузку настроек.
+
+Так же запускаются `RowChecks`, `RefChecks`, `NullChecks`, `AssetChecks`, `ButtonChecks`, `PanelChecks`, `MenuButtonChecks`, `PrefabChecks`, `ShopPanelChecks` и `MenuNavChecks`: они проверяют ряды предметов, ссылки в префабах и сценах, отсутствие пустых обработчиков, панели меню, магазин и навигацию.
